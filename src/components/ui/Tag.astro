@@ -1,0 +1,21 @@
+---
+interface Props {
+  href?: string;
+}
+const { href } = Astro.props;
+---
+
+{
+  href ? (
+    <a
+      class="badge badge-outline rounded-full border-ink/20 px-3 py-3 text-[0.67rem] font-bold tracking-[0.12em] uppercase hover:border-aqua hover:text-aqua"
+      href={href}
+    >
+      <slot />
+    </a>
+  ) : (
+    <span class="badge badge-outline rounded-full border-ink/20 px-3 py-3 text-[0.67rem] font-bold tracking-[0.12em] uppercase">
+      <slot />
+    </span>
+  )
+}

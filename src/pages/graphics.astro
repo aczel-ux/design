@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import CategoryLayout from '../layouts/CategoryLayout.astro';
+const projects = (
+  await getCollection('projects', ({ data }) => data.category === 'graphics' && !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<CategoryLayout
+  title="Visual stories beyond the screen."
+  eyebrow="Graphics / Other"
+  description="A selection of editorial, packaging and physical brand work shaped by typography, hierarchy, materials and a strong visual concept."
+  projects={projects}
+/>

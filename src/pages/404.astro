@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import { withBase } from '../lib/site';
+---
+
+<BaseLayout title="Page not found" noindex
+  ><Container class="flex min-h-[65vh] flex-col items-start justify-center py-20"
+    ><p class="eyebrow">404</p><h1 class="display mt-5">This page wandered off.</h1><p
+      class="mt-7 max-w-xl text-xl leading-8 text-ink/65"
+    >
+      The address may have changed during the migration from Wix. The work is still here—just from a
+      cleaner starting point.
+    </p><Button class="mt-8" href={withBase('/')} size="lg">Back to the portfolio</Button
+    ></Container
+  ></BaseLayout
+>

@@ -1,0 +1,116 @@
+---
+import { Mail, Send } from '@lucide/astro';
+import Container from './ui/Container.astro';
+import { site } from '../lib/site';
+const endpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ?? '';
+---
+
+<section id="contact" class="scroll-mt-24 bg-mist py-20 sm:py-28">
+  <Container class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+    <div>
+      <p class="eyebrow">Have a project?</p>
+      <h2 class="headline mt-4">Tell me what you’re working on.</h2>
+      <p class="mt-7 max-w-md text-lg leading-8 text-ink/65">
+        A short message is enough. I’ll get back to you with useful next steps, usually within two
+        working days.
+      </p>
+      <a
+        class="mt-6 inline-flex items-center gap-2 font-semibold text-aqua-dark underline decoration-aqua/30 underline-offset-4 hover:decoration-aqua"
+        href={`mailto:${site.email}`}><Mail size={18} />{site.email}</a
+      >
+    </div>
+    <form
+      id="contact-form"
+      class="rounded-box border border-line bg-white p-6 shadow-soft sm:p-9"
+      action={endpoint || `mailto:${site.email}`}
+      method={endpoint ? 'POST' : 'GET'}
+      data-endpoint={endpoint}
+      novalidate
+    >
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="form-control"
+          ><span class="label-text mb-2 font-semibold">Name</span><input
+            class="input input-bordered w-full rounded-2xl focus:border-aqua focus:outline-none"
+            type="text"
+            name="name"
+            autocomplete="name"
+            required
+          /><span class="field-error mt-2 hidden text-sm text-error">Please enter your name.</span
+          ></label
+        >
+        <label class="form-control"
+          ><span class="label-text mb-2 font-semibold">Email</span><input
+            class="input input-bordered w-full rounded-2xl focus:border-aqua focus:outline-none"
+            type="email"
+            name="email"
+            autocomplete="email"
+            required
+          /><span class="field-error mt-2 hidden text-sm text-error"
+            >Please enter a valid email.</span
+          ></label
+        >
+      </div>
+      <label class="form-control mt-5"
+        ><span class="label-text mb-2 font-semibold">Your message</span><textarea
+          class="textarea textarea-bordered min-h-40 w-full rounded-2xl focus:border-aqua focus:outline-none"
+          name="message"
+          required></textarea><span class="field-error mt-2 hidden text-sm text-error"
+          >Please add a short message.</span
+        ></label
+      >
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+      <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="max-w-sm text-xs leading-5 text-ink/55">
+          Your details are used only to reply to this inquiry. The form uses Formspree when
+          configured.
+        </p>
+        <button class="btn btn-neutral rounded-full" type="submit"
+          >Send message <Send size={17} /></button
+        >
+      </div>
+      <div id="form-status" class="alert mt-5 hidden" role="status" aria-live="polite"></div>
+    </form>
+  </Container>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = document.querySelector<HTMLElement>('#form-status');
+  const showStatus = (message: string, success: boolean) => {
+    if (!status) return;
+    status.textContent = message;
+    status.className = `alert mt-5 ${success ? 'alert-success' : 'alert-error'}`;
+  };
+  form?.addEventListener('submit', async (event) => {
+    form.querySelectorAll('.field-error').forEach((error) => error.classList.add('hidden'));
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      form
+        .querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(':invalid')
+        .forEach((field) =>
+          field.parentElement?.querySelector('.field-error')?.classList.remove('hidden'),
+        );
+      form.querySelector<HTMLElement>(':invalid')?.focus();
+      return;
+    }
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) return;
+    event.preventDefault();
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    submit?.setAttribute('disabled', '');
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) throw new Error('Submission failed');
+      form.reset();
+      showStatus('Thanks — your message has been sent.', true);
+    } catch {
+      showStatus('The form could not send your message. Please use the email link instead.', false);
+    } finally {
+      submit?.removeAttribute('disabled');
+    }
+  });
+</script>

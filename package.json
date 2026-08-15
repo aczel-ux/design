@@ -1,0 +1,32 @@
+{
+  "name": "aczel-design",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "npm run format && npm run build && npm run test"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "latest",
+    "@astrojs/sitemap": "latest",
+    "@lucide/astro": "latest",
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "daisyui": "latest",
+    "simple-icons": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "prettier": "latest",
+    "prettier-plugin-astro": "latest",
+    "typescript": "latest"
+  }
+}

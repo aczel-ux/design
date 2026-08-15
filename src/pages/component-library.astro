@@ -1,0 +1,97 @@
+---
+import { ArrowRight, Check, Info, Mail, Sparkles } from '@lucide/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import Tag from '../components/ui/Tag.astro';
+---
+
+<BaseLayout
+  title="Component Library"
+  description="The internal design-system reference for aczel.design."
+  noindex
+>
+  <Container class="py-16 sm:py-24">
+    <p class="eyebrow">Development reference</p><h1 class="headline mt-4">Component library</h1><p
+      class="mt-5 max-w-2xl text-lg leading-8 text-ink/65"
+    >
+      Approved tokens and reusable interface patterns. This page is excluded from search indexing.
+    </p>
+    <section class="mt-16 border-t border-line pt-10">
+      <h2 class="text-2xl font-medium">Color</h2><div
+        class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-5"
+      >
+        {
+          [
+            ['Ink', 'bg-ink text-white'],
+            ['Paper', 'bg-white border border-line'],
+            ['Mist', 'bg-mist'],
+            ['Aqua', 'bg-aqua text-white'],
+            ['Line', 'bg-line'],
+          ].map(([name, classes]) => (
+            <div>
+              <>
+                <div class:list={['aspect-square rounded-2xl', classes]} />
+                <p class="mt-2 text-sm font-semibold">{name}</p>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+    <section class="mt-16 border-t border-line pt-10">
+      <h2 class="text-2xl font-medium">Typography</h2><p class="display mt-8">Display</p><p
+        class="headline mt-8"
+      >
+        Headline
+      </p><p class="mt-8 max-w-2xl text-lg leading-8">
+        Body copy is calm, readable and wide enough for editorial content without becoming tiring.
+      </p><p class="eyebrow mt-8">Eyebrow label</p>
+    </section>
+    <section class="mt-16 border-t border-line pt-10">
+      <h2 class="text-2xl font-medium">Buttons and tags</h2><div
+        class="mt-6 flex flex-wrap items-center gap-3"
+      >
+        <Button>Primary <ArrowRight size={17} /></Button><Button variant="secondary"
+          >Secondary</Button
+        ><Button variant="ghost">Ghost</Button><Button size="sm">Small</Button><Button size="lg"
+          >Large</Button
+        ><Tag>UX / UI</Tag><Tag>Design systems</Tag>
+      </div>
+    </section>
+    <section class="mt-16 border-t border-line pt-10">
+      <h2 class="text-2xl font-medium">Fields and feedback</h2><div
+        class="mt-6 grid max-w-3xl gap-5"
+      >
+        <label
+          ><span class="mb-2 block font-semibold">Email</span><div class="relative">
+            <Mail class="absolute left-4 top-3.5 text-ink/45" size={19} /><input
+              class="input input-bordered w-full rounded-2xl pl-12"
+              type="email"
+              placeholder="you@example.com"
+            />
+          </div></label
+        ><label
+          ><span class="mb-2 block font-semibold">Message</span><textarea
+            class="textarea textarea-bordered min-h-32 w-full rounded-2xl"
+            placeholder="A short description…"></textarea></label
+        ><div class="alert alert-success">
+          <Check size={20} /><span>Success feedback uses a clear message and icon.</span>
+        </div><div class="alert alert-info">
+          <Info size={20} /><span>Informational feedback is concise and actionable.</span>
+        </div>
+      </div>
+    </section>
+    <section class="mt-16 border-t border-line pt-10">
+      <h2 class="text-2xl font-medium">Card</h2><article
+        class="mt-6 max-w-md rounded-[1.5rem] border border-line bg-white p-8 shadow-soft"
+      >
+        <Sparkles class="text-aqua" /><h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">
+          A reusable surface
+        </h3><p class="mt-3 leading-7 text-ink/65">
+          Cards group related content without adding unnecessary decoration.
+        </p>
+      </article>
+    </section>
+  </Container>
+</BaseLayout>

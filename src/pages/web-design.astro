@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import CategoryLayout from '../layouts/CategoryLayout.astro';
+const projects = (
+  await getCollection('projects', ({ data }) => data.category === 'web-design' && !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<CategoryLayout
+  title="Websites with a job to do."
+  eyebrow="Web design"
+  description="From focused landing pages to responsive product experiences, I design websites around clarity, usability and the action the business needs people to take."
+  projects={projects}
+/>

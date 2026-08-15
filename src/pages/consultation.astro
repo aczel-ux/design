@@ -1,0 +1,70 @@
+---
+import { Accessibility, Blocks, MessageSquareMore, Workflow } from '@lucide/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { withBase } from '../lib/site';
+const topics = [
+  {
+    icon: MessageSquareMore,
+    title: 'Product review',
+    text: 'A structured UX review with prioritized, practical recommendations for an existing product or concept.',
+  },
+  {
+    icon: Blocks,
+    title: 'Design systems',
+    text: 'Foundations, component strategy, governance and contribution workflows for new or evolving systems.',
+  },
+  {
+    icon: Workflow,
+    title: 'Design operations',
+    text: 'Clearer collaboration, handoff, documentation and decision-making across product teams.',
+  },
+  {
+    icon: Accessibility,
+    title: 'Inclusive design',
+    text: 'Accessibility reviews and team guidance that build better habits into everyday product work.',
+  },
+];
+---
+
+<BaseLayout
+  title="Design Consultation"
+  description="Practical UX, design-system, accessibility and design-operations consultation for product teams."
+>
+  <section class="py-20 sm:py-28 lg:py-36">
+    <Container
+      ><p class="eyebrow">Expert consultation</p><h1 class="display mt-6 max-w-6xl">
+        Make the next design decision with confidence.
+      </h1><div class="mt-10 grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
+        <p class="max-w-3xl text-xl leading-9 text-ink/68 sm:text-2xl">
+          Hands-on support for teams that want stronger products, smoother design practices and
+          scalable foundations—adapted to the actual problem, not a generic playbook.
+        </p><div class="lg:text-right">
+          <Button href={withBase('/#contact')} size="lg">Discuss your challenge</Button>
+        </div>
+      </div></Container
+    >
+  </section>
+  <section class="border-t border-line py-20 sm:py-28">
+    <Container
+      ><p class="eyebrow">Topics</p><div
+        class="mt-10 grid gap-px overflow-hidden rounded-[1.5rem] border border-line bg-line md:grid-cols-2"
+      >
+        {
+          topics.map(({ icon: Icon, title, text }) => (
+            <article class="bg-white p-7 sm:p-10">
+              <>
+                <Icon class="text-aqua" size={30} stroke-width={1.6} />
+                <h2 class="mt-9 text-3xl font-medium tracking-[-0.04em]">{title}</h2>
+                <p class="mt-3 max-w-xl leading-7 text-ink/65">{text}</p>
+              </>
+            </article>
+          ))
+        }
+      </div></Container
+    >
+  </section>
+  <ContactSection />
+</BaseLayout>

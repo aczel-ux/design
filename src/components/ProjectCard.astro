@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowUpRight } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+import Tag from './ui/Tag.astro';
+import { categories, withBase } from '../lib/site';
+interface Props {
+  project: CollectionEntry<'projects'>;
+  priority?: boolean;
+}
+const { project, priority = false } = Astro.props;
+const category = categories[project.data.category];
+---
+
+<article class="group">
+  <a
+    class="block overflow-hidden rounded-[1.5rem] bg-mist"
+    href={withBase(`/projects/${project.id}/`)}
+    aria-label={`View ${project.data.title} case study`}
+  >
+    <Image
+      class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+      src={project.data.cover}
+      alt={project.data.coverAlt}
+      widths={[480, 768, 1100]}
+      sizes="(min-width: 768px) 50vw, 100vw"
+      loading={priority ? 'eager' : 'lazy'}
+    />
+  </a>
+  <div class="flex items-start justify-between gap-5 pt-5">
+    <div>
+      <Tag href={withBase(category.href)}>{category.label}</Tag>
+      <h3 class="mt-3 text-2xl font-medium tracking-[-0.035em] sm:text-3xl">
+        <a class="hover:text-aqua-dark" href={withBase(`/projects/${project.id}/`)}
+          >{project.data.title}</a
+        >
+      </h3>
+      <p class="mt-2 max-w-xl leading-7 text-ink/65">{project.data.summary}</p>
+    </div>
+    <a
+      class="btn btn-circle btn-ghost shrink-0"
+      href={withBase(`/projects/${project.id}/`)}
+      aria-label={`Open ${project.data.title}`}><ArrowUpRight size={21} /></a
+    >
+  </div>
+</article>

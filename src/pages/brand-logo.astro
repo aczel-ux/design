@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import CategoryLayout from '../layouts/CategoryLayout.astro';
+const projects = (
+  await getCollection('projects', ({ data }) => data.category === 'brand-logo' && !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<CategoryLayout
+  title="Identities made to be used."
+  eyebrow="Brand / Logo"
+  description="Logos and visual systems designed to express a brand’s character clearly—and remain consistent across products, communication and physical applications."
+  projects={projects}
+/>

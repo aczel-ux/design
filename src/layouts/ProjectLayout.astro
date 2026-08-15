@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowLeft, ExternalLink } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Tag from '../components/ui/Tag.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { categories, withBase } from '../lib/site';
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const category = categories[project.data.category];
+---
+
+<BaseLayout
+  title={project.data.seoTitle ?? project.data.title}
+  description={project.data.seoDescription ?? project.data.summary}
+>
+  <article>
+    <header class="py-16 sm:py-24">
+      <Container>
+        <a
+          class="inline-flex items-center gap-2 text-sm font-semibold text-ink/60 hover:text-aqua-dark"
+          href={withBase(category.href)}><ArrowLeft size={17} />Back to {category.label}</a
+        >
+        <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_0.38fr] lg:items-end">
+          <div><Tag>{category.label}</Tag><h1 class="display mt-5">{project.data.title}</h1></div>
+          <div>
+            <p class="text-xl leading-8 text-ink/65">{project.data.summary}</p>{
+              project.data.externalUrl && (
+                <a
+                  class="mt-5 inline-flex items-center gap-2 font-semibold text-aqua-dark"
+                  href={project.data.externalUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Visit project <ExternalLink size={17} />
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </Container>
+    </header>
+    <Container>
+      <Image
+        class="max-h-[52rem] w-full rounded-[1.75rem] object-cover"
+        src={project.data.cover}
+        alt={project.data.coverAlt}
+        widths={[640, 960, 1400, 1800]}
+        sizes="(min-width: 1280px) 1200px, 100vw"
+        loading="eager"
+      />
+      <div class="mx-auto grid max-w-5xl gap-12 py-16 lg:grid-cols-[0.28fr_0.72fr] lg:py-24">
+        <aside class="text-sm text-ink/60">
+          {
+            project.data.client && (
+              <div class="mb-5">
+                <>
+                  <p class="eyebrow">Client</p>
+                  <p class="mt-2 text-base text-ink">{project.data.client}</p>
+                </>
+              </div>
+            )
+          }
+          {
+            project.data.role && (
+              <div class="mb-5">
+                <>
+                  <p class="eyebrow">Role</p>
+                  <p class="mt-2 text-base text-ink">{project.data.role}</p>
+                </>
+              </div>
+            )
+          }
+          {
+            project.data.year && (
+              <div>
+                <>
+                  <p class="eyebrow">Year</p>
+                  <p class="mt-2 text-base text-ink">{project.data.year}</p>
+                </>
+              </div>
+            )
+          }
+        </aside>
+        <div class="prose-aczel"><slot /></div>
+      </div>
+      {
+        project.data.gallery.length > 0 && (
+          <div class="grid gap-6 pb-24 sm:pb-32">
+            <h2 class="sr-only">Project gallery</h2>
+            {project.data.gallery.map((item) => (
+              <Image
+                class="w-full rounded-[1.5rem]"
+                src={item.image}
+                alt={item.alt}
+                widths={[640, 960, 1400, 1800]}
+                sizes="(min-width: 1280px) 1200px, 100vw"
+              />
+            ))}
+          </div>
+        )
+      }
+    </Container>
+  </article>
+  <ContactSection />
+</BaseLayout>

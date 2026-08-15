@@ -1,0 +1,79 @@
+---
+import { Download, Users, Accessibility, ChartNoAxesCombined, Wrench } from '@lucide/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { withBase } from '../lib/site';
+const principles = [
+  {
+    icon: Users,
+    title: 'Cross-functional by default',
+    text: 'I work comfortably with research, engineering, writing, product and visual disciplines—and can own smaller projects independently.',
+  },
+  {
+    icon: ChartNoAxesCombined,
+    title: 'Evidence over assumptions',
+    text: 'Qualitative and quantitative research both have a place. I use the level of evidence the decision deserves.',
+  },
+  {
+    icon: Accessibility,
+    title: 'Inclusive is the baseline',
+    text: 'Accessibility is part of design quality, not a final compliance pass. I build the culture and the mechanics around it.',
+  },
+  {
+    icon: Wrench,
+    title: 'Tools serve the work',
+    text: 'Figma, Miro, Adobe CC, Jira, Confluence and code are means to an outcome. I learn or change tools when the problem calls for it.',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="About Dániel Z. Aczél, a senior UX/UI and graphic designer based in Budapest and working internationally."
+>
+  <section class="py-20 sm:py-28 lg:py-36">
+    <Container
+      ><p class="eyebrow">About me</p><h1 class="display mt-6 max-w-5xl">
+        Designing with curiosity, evidence and care.
+      </h1><div class="mt-12 grid gap-10 lg:grid-cols-2">
+        <p class="text-2xl leading-10 tracking-[-0.02em]">
+          I’m Dániel, a senior UX/UI and graphic designer specializing in mobile products, websites
+          and design systems.
+        </p><div class="space-y-5 text-lg leading-8 text-ink/68">
+          <p>
+            Based in Budapest, I collaborate with clients and cross-functional teams around the
+            world. My work also includes identity design, packaging and editorial projects.
+          </p><p>
+            I have worked in agile and waterfall environments, facilitated workshops and helped
+            teams improve both their products and the way design work happens.
+          </p><Button href={withBase('/downloads/daniel-aczel-cv.pdf')} variant="secondary"
+            ><Download size={18} />Download CV <span class="text-xs opacity-60">(2022 archive)</span
+            ></Button
+          >
+        </div>
+      </div></Container
+    >
+  </section>
+  <section class="bg-mist py-20 sm:py-28">
+    <Container
+      ><p class="eyebrow">How I work</p><h2 class="headline mt-4 max-w-3xl">
+        Good work is a team habit.
+      </h2><div class="mt-12 grid gap-5 md:grid-cols-2">
+        {
+          principles.map(({ icon: Icon, title, text }) => (
+            <article class="rounded-[1.5rem] border border-line bg-white p-7 sm:p-9">
+              <>
+                <Icon class="text-aqua" size={28} stroke-width={1.6} />
+                <h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">{title}</h3>
+                <p class="mt-3 leading-7 text-ink/65">{text}</p>
+              </>
+            </article>
+          ))
+        }
+      </div></Container
+    >
+  </section>
+  <ContactSection />
+</BaseLayout>

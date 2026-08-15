@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import CategoryLayout from '../layouts/CategoryLayout.astro';
+const projects = (
+  await getCollection('projects', ({ data }) => data.category === 'ux-ui' && !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<CategoryLayout
+  title="Product experiences that earn their complexity."
+  eyebrow="UX / UI"
+  description="Research, testing and close collaboration turn complex product challenges into clear, polished digital experiences. My work spans product strategy, mobile and web interfaces, and the systems that keep them coherent."
+  projects={projects}
+/>

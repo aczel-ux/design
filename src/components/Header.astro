@@ -1,0 +1,88 @@
+---
+import { Menu, X } from '@lucide/astro';
+import Container from './ui/Container.astro';
+import { withBase } from '../lib/site';
+
+const pathname = Astro.url.pathname;
+const links = [
+  {
+    label: 'Work',
+    href: '/ux-ui/',
+    match: ['/ux-ui/', '/web-design/', '/brand-logo/', '/graphics/', '/projects/'],
+  },
+  { label: 'Consultation', href: '/consultation/', match: ['/consultation/'] },
+  { label: 'About', href: '/about/', match: ['/about/'] },
+];
+const isActive = (match: string[]) => match.some((item) => pathname.includes(item));
+---
+
+<header class="sticky top-0 z-50 border-b border-line/80 bg-white/90 backdrop-blur-xl">
+  <Container class="flex h-[4.75rem] items-center justify-between gap-6">
+    <a
+      class="text-lg font-semibold tracking-[-0.04em]"
+      href={withBase('/')}
+      aria-label="aczel.design home"
+    >
+      aczel<span class="text-aqua">.</span>design
+    </a>
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+      {
+        links.map((link) => (
+          <a
+            class:list={[
+              'rounded-full px-4 py-2 text-sm font-medium hover:bg-mist',
+              isActive(link.match) && 'bg-mist text-aqua-dark',
+            ]}
+            href={withBase(link.href)}
+            aria-current={isActive(link.match) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a class="btn btn-neutral btn-sm ml-2 rounded-full" href={withBase('/#contact')}
+        >Start a project</a
+      >
+    </nav>
+    <button
+      id="menu-toggle"
+      class="btn btn-circle btn-ghost md:hidden"
+      type="button"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Open navigation"
+      ><Menu class="menu-open" size={23} /><X class="menu-close hidden" size={23} /></button
+    >
+  </Container>
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-line bg-white md:hidden"
+    aria-label="Mobile navigation"
+  >
+    <Container class="flex flex-col py-4">
+      {
+        links.map((link) => (
+          <a class="border-b border-line py-4 text-lg font-medium" href={withBase(link.href)}>
+            {link.label}
+          </a>
+        ))
+      }
+      <a class="btn btn-neutral mt-5 rounded-full" href={withBase('/#contact')}>Start a project</a>
+    </Container>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('#menu-toggle');
+  const menu = document.querySelector<HTMLElement>('#mobile-menu');
+  const openIcon = toggle?.querySelector('.menu-open');
+  const closeIcon = toggle?.querySelector('.menu-close');
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+    menu?.classList.toggle('hidden', isOpen);
+    openIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+  });
+</script>

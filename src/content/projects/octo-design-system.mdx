@@ -1,0 +1,49 @@
+---
+title: Octo Design System
+summary: A deliberately simple, accessible and scalable design system built with clear rules and no compromises.
+category: ux-ui
+client: Octomind
+role: UX Lead · Design systems
+year: 2025
+featured: true
+order: 1
+cover: ../../assets/projects/octo-design-system-cover.png
+coverAlt: Octomind design system components arranged on a dark canvas
+gallery:
+  - image: ../../assets/projects/octo-colors.png
+    alt: Base colors arranged in columns by value
+  - image: ../../assets/projects/octo-hierarchy.png
+    alt: Octo Design System hierarchy and radius rules
+  - image: ../../assets/projects/octo-button.png
+    alt: Anatomy of a button component
+  - image: ../../assets/projects/octo-prompt.png
+    alt: Reusable AI prompt field pattern
+  - image: ../../assets/projects/octo-icons.png
+    alt: A selection of the icon creation rules
+---
+
+Most design-system stories focus on the twists, failures and redesigns that eventually lead to a working solution. At Octomind, the story was more direct: we knew how to build a good system, designed it carefully, developed it collaboratively and it worked.
+
+## Foundation
+
+The foundation layer covered color, typography, effects, spacing and sizing. Color tokens had two layers: raw base values and functional tokens. This allowed the palette to evolve centrally without breaking the semantic meaning used by components.
+
+Every token was designed around predictable contrast. Text and background combinations remained readable at WCAG AA level even when designers or developers combined them without checking individual hex values.
+
+## A hierarchy that guides decisions
+
+Typography, radii, effects, margins, padding and component sizes followed three levels: large, medium and small. Large elements could contain medium elements, medium elements could contain small elements, and small elements were endpoints.
+
+This kept the interface from becoming infinitely nested, limited visual complexity to three levels and prevented the gradual scale drift that often appears as products evolve.
+
+## Components and patterns
+
+Components followed the same large–medium–small logic and were available to developers in Storybook. Frequently repeated component combinations were documented as patterns, including a reusable AI prompting field used throughout the product.
+
+## Iconography
+
+Icons were synchronized from Figma to the code repository with a lightweight GitHub workflow. Because the source of truth could update production assets directly, the design team documented strict creation and naming rules.
+
+## Outcome
+
+We made incremental refinements and one larger color overhaul, but the underlying structure remained stable. The system demonstrated that design systems do not need to be painful when the rules are clear and the whole team is aligned from the beginning.
