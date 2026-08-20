@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aether-art-space.github.io/aczel.design/sitemap-index.xml
+Sitemap: https://aczel-ux.github.io/design/sitemap-index.xml

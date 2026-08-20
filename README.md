@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-The configured local URL is `http://localhost:4321/aczel.design/` because the initial GitHub Pages deployment uses a repository subpath.
+The configured local URL is `http://localhost:4321/design/` because the GitHub Pages deployment uses a repository subpath.
 
 Run all checks with:
 
@@ -61,8 +61,8 @@ Pushes to `main` run validation and deploy `dist/` to GitHub Pages. Pull request
 
 The initial Astro configuration targets:
 
-- site: `https://aether-art-space.github.io`
-- base: `/aczel.design`
+- site: `https://aczel-ux.github.io`
+- base: `/design`
 
 ## Moving to the custom domain
 

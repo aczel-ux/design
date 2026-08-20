@@ -4,8 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://aether-art-space.github.io',
-  base: '/aczel.design',
+  site: 'https://aczel-ux.github.io',
+  base: '/design',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
   vite: { plugins: [tailwindcss()] },

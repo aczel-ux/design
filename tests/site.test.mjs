@@ -4,7 +4,7 @@ import { join, resolve } from 'node:path';
 import test from 'node:test';
 
 const dist = resolve('dist');
-const base = '/aczel.design';
+const base = '/design';
 const htmlFiles = [];
 const restoredArticles = JSON.parse(readFileSync(resolve('src/data/wix-articles.json'), 'utf8'));
 
