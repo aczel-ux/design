@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+const { src, alt, caption } = Astro.props;
+const isPortrait = src.height > src.width;
+---
+
+<figure class="not-prose my-12 sm:my-16">
+  <Image
+    class:list={[
+      'w-full rounded-3xl border border-line/70',
+      isPortrait && 'mx-auto max-h-[52rem] w-auto max-w-full object-contain',
+    ]}
+    {src}
+    {alt}
+    widths={[640, 960, 1400, 1800]}
+    sizes={isPortrait ? '(min-width: 640px) 520px, 100vw' : '(min-width: 1280px) 1056px, 100vw'}
+  />
+  {
+    caption && (
+      <figcaption class="mt-3 text-center text-sm leading-6 text-ink/60">{caption}</figcaption>
+    )
+  }
+</figure>

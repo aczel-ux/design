@@ -1,14 +1,40 @@
 ---
 import { getCollection } from 'astro:content';
-import CategoryLayout from '../layouts/CategoryLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import LogoGallery from '../components/LogoGallery.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import ContactSection from '../components/ContactSection.astro';
+import HighlightedText from '../components/ui/HighlightedText.astro';
+
 const projects = (
   await getCollection('projects', ({ data }) => data.category === 'brand-logo' && !data.draft)
 ).sort((a, b) => a.data.order - b.data.order);
+const description =
+  'A selection of logos and brand identities designed by Dániel Z. Aczél, from standalone marks to complete visual identity systems.';
 ---
 
-<CategoryLayout
-  title="Identities made to be used."
-  eyebrow="Brand / Logo"
-  description="Logos and visual systems designed to express a brand’s character clearly—and remain consistent across products, communication and physical applications."
-  projects={projects}
-/>
+<BaseLayout title="Brand & Logo Design" description={description}>
+  <section class="py-20 sm:py-28">
+    <Container>
+      <h1 class="display">
+        <HighlightedText text="Brand & Logo Design" highlights={['Brand', 'Logo']} />
+      </h1>
+      <p class="mt-7 max-w-[39rem] leading-7 text-ink/75">
+        Here you can browse a selection of logos I have designed over the years. Some were
+        standalone logo projects, while others formed part of a broader brand identity. Most were
+        created from scratch, with a few developed as logo refreshes or brand updates.
+      </p>
+    </Container>
+  </section>
+
+  <LogoGallery />
+
+  <section class="bg-mist py-20 sm:py-24">
+    <Container>
+      <h2 class="headline mb-12">Case studies</h2>
+      <ProjectGrid projects={projects} compact />
+    </Container>
+  </section>
+  <ContactSection />
+</BaseLayout>

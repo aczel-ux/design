@@ -1,0 +1,2730 @@
+{
+  "octo-design-system": {
+    "sourceTitle": "Octo Design System",
+    "sourceSlug": "octo-design-system",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Usually these case studies contain some kind of twist and revelation - how we came up with a new approach to design systems and failed many times, but learned from our failures and finally ended up with a better version or something -. But that's not really the case for the design system we built for Octomind."
+      },
+      {
+        "type": "paragraph",
+        "text": "We knew how to build a good design system, we designed it, we built it, it worked like a charm, end of story. Here are some details about it if you are into this kind of thing:",
+        "html": "<strong>We knew how to build a good design system, we designed it, we built it, it worked like a charm, end of story. Here are some details about it if you are into this kind of thing:</strong>"
+      },
+      {
+        "type": "heading",
+        "text": "The Octo Design System Foundation",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "The foundation layer contained the following tokens:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": ["colors", "typography", "effects", "paddings and margins"]
+      },
+      {
+        "type": "heading",
+        "text": "Colors and Tokens",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Our colors were very carefully designed not just to look good, but to be perfectly functioning as tokens."
+      },
+      {
+        "type": "paragraph",
+        "text": "The color tokens had two layers. Base tokens for the raw colors and functional tokens, this way they can easily be updated in isolation if needed, but still only in one central place."
+      },
+      {
+        "type": "paragraph",
+        "text": "Some interesting mechanics that play well together:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "every second layer token was using the same value base token as a reference for the same functionality. Example: text tokens are derived from value 20 tokens and background tokens are derived from value 80 tokens",
+          "every token with a value of 50 or less should be AA compliant with dark text and every token with greater or equal value are AA compliant with light text",
+          "every same value token has the same level of color contrast in accordance to different value tokens, therefore it is very easy to know which can be combined with which token to achieve certain accessibility standards"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Therefore even if a developer randomly assigned a text style to a text on a randomly assigned background, it will always be readable in at least AA level of the WCAG accessibility standard! It was literally impossible to do less accessible UI than designed.",
+        "html": "<strong>Therefore even if a developer randomly assigned a text style to a text on a randomly assigned background, it will always be readable in at least AA level of the WCAG accessibility standard! It was literally impossible to do less accessible UI than designed.</strong>"
+      },
+      {
+        "type": "image",
+        "alt": "the base colors neatly arranged in columns based on their values",
+        "caption": "our base colors neatly arranged in columns based on their values - second layer tokens are listed below the base colors",
+        "file": "wix-post-01-01.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "There were even more colors for graphs, gradients for hero items and some transparent tokens in the system as well with a similar logic as the base colors."
+      },
+      {
+        "type": "heading",
+        "text": "Hierarchy",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The hierarchy of the elements in Octo Design System was also very precisely designed so it's not only easy to use, but basically dictates usage to whoever is working with it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Typographic styles, border radii, effects, margins and paddings, element sizing and so on could have 3 sizes: Large, Medium or Small. From here on the logic was simple:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "on the body large value entities can go (large title, large card with a large border radius, etc...)",
+          "inside large elements go the medium elements",
+          "in medium elements go the small elements",
+          "nothing goes in small elements"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "These rules not only helped us create a hierarchy that makes sense to our users, but also prevented us from making unsatisfactory solutions:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "we couldn't nest infinite elements in each other, therefore our UI remained simple with a maximum of 3 levels of objects",
+          "we couldn't fall into the trap of UI scale-shift, where the elements are just progressively growing or shrinking as the designs evolve"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Once again it was impossible to design or develop something that didn't meet our predefined standards.",
+        "html": "<strong>Once again it was impossible to design or develop something that didn&#x27;t meet our predefined standards.</strong>"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-01-02.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "An additional piece of visual eye candy that I absolutely loved was that the size of border radii and their parent components' internal paddings were synchronized in a way that elements nested in each other always had the same center point for the circular shape that defined their border radius (see octo-radius-small and octo-radius-medium in the picture above). Not only did this look nice, but if something was nested in the wrong element, it was very easy to spot even for someone who is not so design-savvy."
+      },
+      {
+        "type": "heading",
+        "text": "Component Layer",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Nothing extravagant here, our components followed the same sizing (L-M-S) and were hosted in Storybook where devs could try them out before using them."
+      },
+      {
+        "type": "image",
+        "alt": "anatomy of a button",
+        "caption": "anatomy of a button",
+        "file": "wix-post-01-03.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "Our next step was to create component combinations or patterns that were commonly used groups of components."
+      },
+      {
+        "type": "image",
+        "alt": "a simple component-combo that we used for AI prompting field all around the app",
+        "caption": "a simple component-combo that we used for AI prompting field all around the app",
+        "file": "wix-post-01-04.png"
+      },
+      {
+        "type": "heading",
+        "text": "Icons",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Icons are mostly part of the branding topic, but from a design system perspective an interesting quality-of-life feature we created was the automatic syncing of the icons from Figma to our repo without any manual work. OK, a little manual work: there was a sync button in GitHub that you needed to press."
+      },
+      {
+        "type": "paragraph",
+        "text": "Of course this meant that whatever was in Figma got into the app directly - we had some mechanics to avoid large failures, but a lot of discipline was needed from the design side, therefore we wrote down some rules."
+      },
+      {
+        "type": "image",
+        "alt": "about 1/3 of our icon creation rules pinned in the Iconography library",
+        "caption": "about 1/3 of our icon creation rules pinned in the Iconography library",
+        "file": "wix-post-01-05.png"
+      },
+      {
+        "type": "heading",
+        "text": "Summary",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Of course we had to redo a couple of things, tweak it on the go, but not that much. We did a colour-overhaul once, that was the biggest change and even that was quite easy because we followed best practices. Our agile coach did it on the side because she felt like coding a bit. So in a nutshell, design systems are not supposed to be painful if you have a plan and everybody is on board from the beginning."
+      }
+    ]
+  },
+  "managing-at-wlrp": {
+    "sourceTitle": "Managing at WLRP",
+    "sourceSlug": "managing-at-wlrp",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "WLRP is a Budapest based company that mainly sells tourism and nightlife entertainment related services (guided tours, pubcrawls, pubs, etc...) for their own services or services of third parties. I joined the company early in my career as an in-house graphic designer and a few years later returned as a manager. Their business model is based on creating SEO centric websites and selling these real-world services online. Because of that half of the operation was \"on the field\" (drivers, guides) and the other half was in the office creating and maintaining these \"Google first page\" websites. I was responsible in leading the latter."
+      },
+      {
+        "type": "paragraph",
+        "text": "I say \"managing\" because it was a mixture of people management and project management, basically I was handling all operations inside the office under the owners. Our team consisted of a graphic designer, a back-end- and a front-end developer, a marketing specialist and a few contact-people at each business we were working with."
+      },
+      {
+        "type": "paragraph",
+        "text": "They hired me to completely reform and modernise the office processes over a half year period. The work methods were outdated or even lacking a modern structure, since the company was originally not specialised in development but evolved to basically a web development agency - but the management were not properly educated how to handle this kind of work.",
+        "html": "<strong>They hired me to completely reform and modernise the office processes over a half year period. </strong>The work methods were outdated or even lacking a modern structure, since the company was originally not specialised in development but evolved to basically a web development agency - but the management were not properly educated how to handle this kind of work."
+      },
+      {
+        "type": "paragraph",
+        "text": "I started with a thorough audit of the status quo, including HR issues, workflow, processes and other factors as well."
+      },
+      {
+        "type": "heading",
+        "text": "Project management issues",
+        "level": 2
+      },
+      {
+        "type": "heading",
+        "text": "Uncoordinated workflow",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Their original process was very much improvised. A new project arrived from the owners, the designer created the designs based on verbal instructions and it was handed over to development. The projects were not estimated, not documented and if they were taking too long, they cut corners that caused problems in the future. There was also some tension in these cases. The employees were also not very engaged and passive, they were following instructions, but not contributing much to the core concept - it was not their fault, they were never included."
+      },
+      {
+        "type": "heading",
+        "text": "Improvements in the workflow",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Many things were needed to be done and a whole lot of new systems were needed to be implemented without disrupting work too much or overwhelming both the employees and management."
+      },
+      {
+        "type": "heading",
+        "text": "Organised meetings",
+        "level": 5
+      },
+      {
+        "type": "paragraph",
+        "text": "First and foremost we needed structure. I created a shared \"company calendar\" that was synced with everyones devices and arranged some recurring meetings and ceremonies. This is what it looked like:"
+      },
+      {
+        "type": "paragraph",
+        "text": "MONTHLY Project Kick-off Meeting (this was the timebox of every project)",
+        "html": "<strong>MONTHLY Project Kick-off Meeting </strong>(this was the timebox of every project)"
+      },
+      {
+        "type": "paragraph",
+        "text": "In this meeting everyone in the office participated and even stakeholders from outside the office were included given the chance. The idea was that everyone can give their professional input early on the project and shape it to it's best form. This also improved moral, since everyone was on board with the idea from the start. On this meeting we also organised priorities for the upcoming month."
+      },
+      {
+        "type": "image",
+        "alt": "Finally there was something other on the whiteboard than just the Wifi password!",
+        "caption": "Finally there was something other on the whiteboard than just the Wifi password!",
+        "file": "wix-post-02-01.jpg"
+      },
+      {
+        "type": "paragraph",
+        "text": "WEEKLY Sync Meeting",
+        "html": "<strong>WEEKLY Sync Meeting</strong>"
+      },
+      {
+        "type": "paragraph",
+        "text": "This was the other meeting where everyone was present between the monthly big one. We basically checked the progress of the project, reorganised priorities if needed and handled ad-hoc tasks."
+      },
+      {
+        "type": "paragraph",
+        "text": "WEEKLY Stand up",
+        "html": "<strong>WEEKLY Stand up</strong>"
+      },
+      {
+        "type": "paragraph",
+        "text": "A quick meeting during the middle of the week with the employees to check for blockers and to keep everyone in sync."
+      },
+      {
+        "type": "paragraph",
+        "text": "MONTHLY Retro",
+        "html": "<strong>MONTHLY Retro</strong>"
+      },
+      {
+        "type": "paragraph",
+        "text": "We gathered together to summarise what went well and what didn't during our last project, besides being a safe place to talk about issues and places for improvement."
+      },
+      {
+        "type": "paragraph",
+        "text": "+ Automated Slack check-in",
+        "html": "<strong>+ Automated Slack check-in</strong>"
+      },
+      {
+        "type": "paragraph",
+        "text": "It's more of a meeting substitute, but it was handy. I implemented an automation tool in slack that checked in with people in a public channel... it was a quick 3 question survey: \"rate your weekly mood with an emoji\", \"what were you working on during the week\" and finally \"is there anything that's blocking you?\" - this helped me to keep my finger on the pulse and also highlight if there are any blockers between our meetings."
+      },
+      {
+        "type": "heading",
+        "text": "Communication issues",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The people in the office were relying on live conversation, but since there was no trail, this caused tension and also left those out from the loop who were not in the office."
+      },
+      {
+        "type": "paragraph",
+        "text": "When not in the office, they were using messaging apps connected to their private social media profiles between each other or had unannounced phone calls. This was more of an issues for the employees, since it was hard for them to set boundaries."
+      },
+      {
+        "type": "paragraph",
+        "text": "Reaching the \"non-office\" employees happened through phone calls or emails, but usually people didn't have the contact information to all the involved colleagues, so lot of times projects stalled because information was unavailable."
+      },
+      {
+        "type": "paragraph",
+        "text": "In a nutshell, the company lacked a communication channel that allowed employees to professionally converse and reach each other freely. The platforms they were using were also not suitable for transferring files and other resources properly."
+      },
+      {
+        "type": "heading",
+        "text": "Introducing a modern work-centric communication platform",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Most of these problems were solved with the introduction of Slack. (Although it was not easy at first, management needed to be reminded many times to abandon social media for reaching the employees). We created several channels:"
+      },
+      {
+        "type": "paragraph",
+        "text": "- office channel (management, development, design, marketing)"
+      },
+      {
+        "type": "paragraph",
+        "text": "- a channel for everyone - this was rarely used, but it was useful for announcements"
+      },
+      {
+        "type": "paragraph",
+        "text": "- developer channel"
+      },
+      {
+        "type": "paragraph",
+        "text": "- channels for every individual project - these included the core office team and the contact person from these projects, they proved to be very useful"
+      },
+      {
+        "type": "paragraph",
+        "text": "And most of all, now everyone who was involved in the company was available through Slack, so people didn't have to go through management to get contact info if they had to collaborate with someone. Slack also allowed people to have quick voice or video calls or to share their screens if needed. An additional benefit was that Slack can be set to automatically be muted after work hours, so it helped to improve employees mental health by giving them a break from work when they were at home.",
+        "html": "And most of all, now everyone who was involved in the company was available through Slack, so people didn&#x27;t have to go through management to get contact info if they had to collaborate with someone. Slack also allowed people to have quick voice or video calls or to share their screens if needed. An additional benefit was that Slack can be set to automatically be muted after work hours, so it helped to <strong>improve employees mental health</strong> by giving them a break from work when they were at home."
+      },
+      {
+        "type": "heading",
+        "text": "Lack of documentation",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Nothing was documented except a few lines written on sticky notes and txt files here and there. Not only did this cause a problem when an older project needed some bugfixes or rework, but when an employee departed everyone was left in the dark around their work. This caused a lot of headache after the lead developer left the company years ago - not only was it an additional frustration for the people working at WLRP, but also to the former developer who was being ringed up to answer question about a project he worked on in his former job."
+      },
+      {
+        "type": "heading",
+        "text": "Embedding documentation in the process",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "I introduced Notion as an easy-to-use platform for our documentation needs and trained our developers to document their work during every project. Later when we caught up, we also collected many non-development related information here regarding personal development, social media strategies, etc. and spent a few weeks going back and documenting former projects (while they still remember them). Additionally to making reworks and fixes easier, even though we were not preparing for anyone to leave the team, this still reduced the risk if someone did."
+      },
+      {
+        "type": "paragraph",
+        "text": "The hardest part of this was probably convincing the leadership to assign proper time for documentation."
+      },
+      {
+        "type": "heading",
+        "text": "Security issues",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The company was handling dozens of social media accounts, servers, billing information and was working with several tools and platforms. The passwords were not regulated in any way. Some former employees still had access to certain things, while current employees had to dig for passwords in chat conversations. This was not safe or practical at all."
+      },
+      {
+        "type": "heading",
+        "text": "Introducing proper password management",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "We used LastPass (a product a vaguely worked on in a different company) to centralise passwords. We created groups with different levels of clearance. From this on departed employees could be stripped of their access with one click and new ones assigned access the same way."
+      },
+      {
+        "type": "paragraph",
+        "text": "The social media manager also got access to all accounts and platforms and could become more independent."
+      },
+      {
+        "type": "paragraph",
+        "text": "Not to mention that this was a much safer way of storing passwords credit cards."
+      },
+      {
+        "type": "heading",
+        "text": "People management issues",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Some employees were more motivated than others, but in general there was a lack of motivation or proactivity. This was caused by many factors:"
+      },
+      {
+        "type": "paragraph",
+        "text": "- no growth opportunities"
+      },
+      {
+        "type": "paragraph",
+        "text": "- little say in strategy or daily work"
+      },
+      {
+        "type": "paragraph",
+        "text": "- lacking work environment (both software and the physical office)"
+      },
+      {
+        "type": "paragraph",
+        "text": "- no company identity and sense of belonging for the employees"
+      },
+      {
+        "type": "paragraph",
+        "text": "- low salary and inconsistent or unpredictable raises"
+      },
+      {
+        "type": "heading",
+        "text": "Providing growth opportunities and a transparent system",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "I started with doing an \"interview\" with all employees individually in complete discretion. I was looking for their painpoints, their goals, what motivates them, what are they interested in. Of course the answers varied by person, but there were some common patterns."
+      },
+      {
+        "type": "paragraph",
+        "text": "I also made them self-evaluate their current skills and work, and based on a generic understanding of role \"levels\" by other companies (junior / medior / senior) I self-categorised them into these roles. After this I planned several steps:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "We defined together some opportunities where they can grow in a direction they are interested in and what would qualify them to step a level upwards (ex.: the \"medior\" front-end developer needed to improve their independent work and take on some management tasks in order to be qualified as \"senior\").",
+          "We defined a timeline for this and scheduled some check-ins so we can track their progress"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "I synced with upper management about several steps we need to take:",
+        "html": "<strong>I synced with upper management about several steps we need to take:</strong>"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "We needed to consolidate salaries for the levels so there are less differences between the employees wage on the same level",
+          "The raises needed to be transparent. There needs to be a basic level raise every year that somewhat correlates with inflation and other larger raises should be tied with promotions.",
+          "If the goals that we set with the employees for reaching the next level, they need to be promoted within a reasonable timeframe",
+          "Resources (such as books, courses, tools, conferences) are needed to be provided for the employees within a certain budget, this brings lots of value to the company as well"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Improving the work environment",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "I talked a lot about the improvement we made around the virtual work environment, so I won't detail it any further, but I will outline some needed office upgrades below."
+      },
+      {
+        "type": "paragraph",
+        "text": "The most interesting revelation around these improvements is that all the employees ranked them as a non-issue when I surveyed them, but then reported that they feel much better about the workplace after we did the changes."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "We put in a recurring order for coffee and tea, so there is always available hot beverages in the office",
+          "We started to renovate one of the rooms to become a breakroom - before everyone was eating at their desks separately and there was no non-work area for breaks (or even a phone call)",
+          "I encouraged longer team lunches outside the office - getting some fresh air and bonding over other things than work is great for interpersonal relationships and general moral",
+          "Started recycling",
+          "We created a meeting corner (there was already a desk available, so we just needed to add a tv and a whiteboard) - this allowed the employees to present their work and discuss matters without hunching at someones desk"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Brand Building",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The owners of WLRP always claimed that they don't need a brand, because the company itself is not present anywhere - each services they provide have their own brand. This was true, but there was no drawback of having a supporting parent company, it actually provides some benefits in their case:"
+      },
+      {
+        "type": "paragraph",
+        "text": "- the individual brands can be tied together and they can be cross-sold to customers"
+      },
+      {
+        "type": "paragraph",
+        "text": "- it's easier to hire new employees, because the company is transparent and can be looked up"
+      },
+      {
+        "type": "paragraph",
+        "text": "- employees feel better about the place they work at and can show it off with some custom swag"
+      },
+      {
+        "type": "image",
+        "alt": "The new logo of WLRP used some fun colors",
+        "caption": "The new logo of WLRP used some fun colors",
+        "file": "wix-post-02-02.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "We didn't dive deep into brand building, but we created a basic foundation:",
+        "html": "<strong>We didn&#x27;t dive deep into brand building, but we created a basic foundation:</strong>"
+      },
+      {
+        "type": "paragraph",
+        "text": "- Created a logo and basic Brand Identity Guide with colors, typography and some other recurring elements"
+      },
+      {
+        "type": "paragraph",
+        "text": "- Started a presence on LinkedIn"
+      },
+      {
+        "type": "paragraph",
+        "text": "- Created an introduction website for the company that we could use for hiring people"
+      },
+      {
+        "type": "paragraph",
+        "text": "- Consolidated the styles of the new websites under the new brand"
+      },
+      {
+        "type": "paragraph",
+        "text": "- Added \"by WLRP\" to all the logos of the services"
+      },
+      {
+        "type": "heading",
+        "text": "Other changes",
+        "level": 2
+      },
+      {
+        "type": "heading",
+        "text": "Design process improvements",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Designers were using outdated tools such Adobe Photoshop or Illustrator for designing the websites. I introduced Figma for designing and handover both to designers and developers. This improved and modernised the design and handover process greatly."
+      },
+      {
+        "type": "paragraph",
+        "text": "I also introduced Miro as a place to brainstorm or co-work with even non-designers."
+      },
+      {
+        "type": "heading",
+        "text": "Start of a design system",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Most of the websites created under WLRP used a similar formula and shared lots of elements, but they were always hard coded from scratch, which caused a lot of wasted time when they were designed, created and even when maintained."
+      },
+      {
+        "type": "paragraph",
+        "text": "I started a basic design system where we placed the recurring components and started to work on developing it slowly with the front-end developer. Every time we added something it cut down from the effort of a new project."
+      },
+      {
+        "type": "image",
+        "alt": "The new colors of WLRP used across every service",
+        "caption": "The new colors of WLRP used across every service",
+        "file": "wix-post-02-03.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "The centralised styles manifested in different ways accross the services:"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-02-04.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-02-05.png"
+      }
+    ]
+  },
+  "sajo-recruitment": {
+    "sourceTitle": "Sajó Recruitment",
+    "sourceSlug": "sajó-recruitment",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Sajó Recruitment brings qualified and trained workers from eastern european countries to western european companies. At the time it was a completely new company, they needed a whole brand identity and a new website to start with."
+      },
+      {
+        "type": "image",
+        "alt": "A snapshot from the Brand Identity Guide",
+        "caption": "A snapshot from the Brand Identity Guide",
+        "file": "wix-post-03-01.png"
+      }
+    ]
+  },
+  "schonherz-brass-band": {
+    "sourceTitle": "Schönherz Brass Band",
+    "sourceSlug": "schönherz-brass-band",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "The Schönherz Brass Band originates from an engineering campus a decade ago. Since than they grew with a new singer and have regular gigs, so a logo was due."
+      },
+      {
+        "type": "paragraph",
+        "text": "They requested something fun, but simple that clearly communicates what instrument they play."
+      },
+      {
+        "type": "image",
+        "alt": "All the mutations of the Schönherz logo",
+        "caption": "All the mutations of the Schönherz logo",
+        "file": "wix-post-04-01.png"
+      },
+      {
+        "type": "image",
+        "alt": "The structure of the \"full\" logo version",
+        "caption": "The structure of the \"full\" logo version",
+        "file": "wix-post-04-02.png"
+      }
+    ]
+  },
+  "labimmun": {
+    "sourceTitle": "Labimmun",
+    "sourceSlug": "labimmun",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Labimmun",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Labimmun is a medical diagnostics provider specialised in auto-immune disease diagnostic tools."
+      },
+      {
+        "type": "heading",
+        "text": "About the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The company wanted to refresh their brand and a new logo that is based on the old one. We used the old symbol as a basis and paired it with a modern, more humanistic typeface."
+      },
+      {
+        "type": "image",
+        "alt": "All the mutations of the Labimmun logo",
+        "caption": "All the mutations of the Labimmun logo.",
+        "file": "wix-post-05-01.png"
+      }
+    ]
+  },
+  "medi-lab": {
+    "sourceTitle": "Medi-lab",
+    "sourceSlug": "medi-lab",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About the company",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Medi-Lab is a medical laboratory diagnostics provider based in Hungary.\\"
+      },
+      {
+        "type": "heading",
+        "text": "Logo refresh",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "We started with an updated logo. They wanted to preserve some characteristics of the old brand but with a new, modern and professional looking logo that can be better used in web and various applications."
+      },
+      {
+        "type": "image",
+        "alt": "All the mutations of the Medi-Lab logo",
+        "caption": "All the mutations of the Medi-Lab logo",
+        "file": "wix-post-06-01.png"
+      }
+    ]
+  },
+  "my-work-at-logmein-goto": {
+    "sourceTitle": "My work at Logmein / GoTo",
+    "sourceSlug": "my-work-at-logmein-goto",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "2021-2022",
+        "level": 2
+      },
+      {
+        "type": "heading",
+        "text": "Chameleon Design System - Mobile expert",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "I am working in the design system team as the mobile expert creating, improving and maintaining the GoTo's design system called Chameleon."
+      },
+      {
+        "type": "paragraph",
+        "text": "I am also responsible for the Iconography and Illustrations used across all platforms and products."
+      },
+      {
+        "type": "heading",
+        "text": "2019-2021",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "As my primary responsibility at LogMeIn I am holding the role of lead designer for Mobile Meeting Experience. I am designing the iOS and Android mobile apps, but I am also involved in the design of other endpoints as well as part of the UX team and as an expert in mobile product design.",
+        "html": "<strong>As my primary responsibility at LogMeIn I am holding the role of lead designer for Mobile Meeting Experience</strong>. I am designing the iOS and Android mobile apps, but I am also involved in the design of other endpoints as well as part of the UX team and as an expert in mobile product design."
+      },
+      {
+        "type": "heading",
+        "text": "GoToMeeting app design",
+        "level": 3
+      },
+      {
+        "type": "heading",
+        "text": "Lead designer role",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Using research and data I have been involved from strategy to execution in several industry leading mobile apps, such as GoToMeeting and GoToMeeting Messenger. These mobile apps had the highest rating among our products and consistently kept their position as such.",
+        "html": "Using research and data I have been involved from strategy to execution in several industry leading mobile apps, such as <a href=\"https://www.aczel.design/post/gotomeeting-mobile-apps\">GoToMeeting</a> and <a href=\"https://www.aczel.design/post/gotomeeting-messenger-mobile-apps\">GoToMeeting Messenger</a>. These mobile apps had the highest rating among our products and consistently kept their position as such."
+      },
+      {
+        "type": "paragraph",
+        "text": "Under my lead the apps have went through a complete UX-centric redesign, which improved user experience by every metric."
+      },
+      {
+        "type": "heading",
+        "text": "GoTo mobile apps – Meeting Experience",
+        "level": 3
+      },
+      {
+        "type": "heading",
+        "text": "Experience designer role",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "The GoTo was the next generation of our products and a new phase in LogMeIns history. The whole company transformed and even changed its name to GoTo."
+      },
+      {
+        "type": "paragraph",
+        "text": "I was responsible for the Meeting Experience for mobile which now included not only iOS and Android phones, but also tablets.",
+        "html": "I was responsible for the <a href=\"https://www.aczel.design/post/goto-mobile-apps\"><u>Meeting Experience for mobile</u></a> which now included not only iOS and Android phones, but also tablets. <br>"
+      },
+      {
+        "type": "paragraph",
+        "text": "In this new product, my responsibilities expanded beyond meetings to the webinar and training modules and I took a more leading, strategist role. At the same time the environment became more complex, the GoTo app was home for messaging, voice calls and more functionality than just meetings. We had to align across teams, border and time zones."
+      },
+      {
+        "type": "heading",
+        "text": "Design system",
+        "level": 3
+      },
+      {
+        "type": "heading",
+        "text": "Contributor role",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "I’ve taken part in creating LogMeIn’s first all-round design system from scratch which eventually grew into a component library that is used up until this day."
+      },
+      {
+        "type": "paragraph",
+        "text": "As part of the UX team one of my responsibilities is to be involved with our design system (called Chameleon) and add to it, shape it from a mobile perspective.",
+        "html": "As part of the UX team one of my responsibilities is to be <strong>involved with our design system</strong> (called Chameleon) and add to it, shape it from a mobile perspective. <br>"
+      },
+      {
+        "type": "heading",
+        "text": "Illustrations",
+        "level": 3
+      },
+      {
+        "type": "heading",
+        "text": "Project leader role",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Managing work with external artists was maybe my most favourite side project at LogMeIn. We were tackling the illustrations for the GoTo product family – the first complete set of illustrations done as a project. One of the benefits in working with a large company like this is that I had access to a more flexible budget and I had bigger reach than usual. For this project we reached out to many lesser known artists around the world and ended up choosing a talented independent illustrator who made many beautiful images to delight our users.",
+        "html": "<strong>Managing work with external artists</strong> was maybe my most favourite side project at LogMeIn. We were tackling the illustrations for the GoTo product family – the first complete set of illustrations done as a project. One of the benefits in working with a large company like this is that I had access to a more flexible budget and I had bigger reach than usual. For this project we reached out to many lesser known artists around the world and ended up choosing a talented independent illustrator who made many beautiful images to delight our users. <br>"
+      },
+      {
+        "type": "heading",
+        "text": "Cross-product responsibilities",
+        "level": 5
+      },
+      {
+        "type": "paragraph",
+        "text": "I’ve been involved in creating roadmaps and high level strategy of our mobile products. Part of my responsibilities was to provide a mobile perspective in every GoTo project, for which I have created a guild for mobile designers."
+      },
+      {
+        "type": "heading",
+        "text": "Accessibility",
+        "level": 5
+      },
+      {
+        "type": "paragraph",
+        "text": "I’ve taken part in the accessibility initiative and transformed the mobile apps to comply with our new guidelines and even domesticated some best practices within our team for better accessibility."
+      },
+      {
+        "type": "heading",
+        "text": "Cross-functional collaboration",
+        "level": 5
+      },
+      {
+        "type": "paragraph",
+        "text": "I have worked together with Product Management, Development, Marketing and the Brand team. During these cooperations I’ve experimented with various frameworks and popularised successful ones inside the company."
+      },
+      {
+        "type": "heading",
+        "text": "Collaboration with product",
+        "level": 6
+      },
+      {
+        "type": "paragraph",
+        "text": "I give insight to product management from the UX perspective, influencing the roadmaps and prioritising on a more tactical level as well."
+      },
+      {
+        "type": "heading",
+        "text": "Collaboration with designers",
+        "level": 6
+      },
+      {
+        "type": "paragraph",
+        "text": "I co-design, brainstorm, workshop and give advice back and forth with my fellow UX designers both in our team and both cross-team. I’ve started to create a mobile guild throughout the company to help cross-business unit cooperation. I’ve onboarded and currently am mentoring one of our newest members of the team.",
+        "html": "<strong>I co-design, brainstorm, workshop and give advice back and forth with my fellow UX designers</strong> both in our team and both cross-team. I’ve started to create a mobile guild throughout the company to help cross-business unit cooperation. I’ve onboarded and currently am <strong>mentoring</strong> one of our newest members of the team. <br>"
+      },
+      {
+        "type": "heading",
+        "text": "Collaboration with research",
+        "level": 6
+      },
+      {
+        "type": "paragraph",
+        "text": "When needed I am working with other non-designer UX colleagues as well; Working with researchers, we are conducting both qualitative and quantiative research that helps us find our way to the future of the product or help us refine our products based on our users needs.",
+        "html": "When needed I am working with other non-designer UX colleagues as well; <strong>Working with researchers</strong>, we are conducting both qualitative and quantiative research that helps us find our way to the future of the product or help us refine our products based on our users needs. <br>"
+      },
+      {
+        "type": "heading",
+        "text": "Collaboration with editors",
+        "level": 6
+      },
+      {
+        "type": "paragraph",
+        "text": "Working with UX Writers, we are shaping our product persona and our copy, microcopy inside our app to provide the best and most understandable experience through our editorials as well.",
+        "html": "<strong>Working with UX Writers</strong>, we are shaping our product persona and our copy, microcopy inside our app to provide the best and most understandable experience through our editorials as well. <br>"
+      },
+      {
+        "type": "heading",
+        "text": "Collaboration with developers",
+        "level": 6
+      },
+      {
+        "type": "paragraph",
+        "text": "Delivering to developers on a daily basis and including them in the design process is a large part of my work. It is part of my responsibility to include engineering in the design process and negotiate about priorities based on a realistic understanding of effort and new technologies, but it is also my part to educate developers about UX trends and keep them updated about what’s to come.",
+        "html": "<strong>Delivering to developers on a daily basis and including them in the design process</strong> is a large part of my work. It is part of my responsibility to include engineering in the design process and negotiate about priorities based on a realistic understanding of effort and new technologies, but it is also my part to educate developers about UX trends and keep them updated about what’s to come."
+      }
+    ]
+  },
+  "pubcrawl-budapest": {
+    "sourceTitle": "PubCrawl Budapest",
+    "sourceSlug": "pubcrawl-budapest",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Pubcrawl Budapest",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Pubcrawl Budapest is one of the biggest online pubcrawl organizers of the hungarian capital. The main target group is tourists between the age of 20-35, either lone travellers or larger groups coming for a stag weekend to Budapest."
+      },
+      {
+        "type": "heading",
+        "text": "Fixing the Pubcrawl Budapest brand and website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Most of the crawl’s traffic come from the websites that greatly rely on organic searches. They already had a somewhat established logo for the operation, but the whole brand was inconsistent across mediums. A new brand identity had to be created, which was based on one of the already existing websites."
+      },
+      {
+        "type": "quote",
+        "text": "The goal conversion rate showed +14.57% increase after the redesign",
+        "html": "<em>The goal conversion rate showed </em><strong><em>+14.57% </em></strong><em>increase after the redesign</em>"
+      },
+      {
+        "type": "paragraph",
+        "text": "The website was also re-done with a new, optimalized – but familiar – front-end, some more up-to-date graphic imagery and a structure that centers around converting visitors to actual customers."
+      },
+      {
+        "type": "paragraph",
+        "text": "A new mobile version was created, since the legacy version was a really simple, neglected version of the website – this was one of the biggest problems with the current strategy, since tourists on the spot acces the website on mobile primarly. A number of iterations were created and based on our statistics, they are still being created."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-08-01.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-08-02.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-08-03.jpeg"
+      },
+      {
+        "type": "paragraph",
+        "text": "Thanks to these efforts, pubrawl-budapest.com has a very high number of converters and is #1 on the Google search results for the primary keywords.",
+        "html": "<strong>Thanks to these efforts, pubrawl-budapest.com has a very high number of converters and is #1 on the Google search results for the primary keywords.</strong>"
+      }
+    ]
+  },
+  "miratia-web": {
+    "sourceTitle": "Miratia",
+    "sourceSlug": "miratia",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Miratia is an interactive city puzzle app aimed for families with children, that are on vacation. This redesign features a site that is more optimised for user experience and aimed to give a teaser about the fresh and fun style of the application."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-09-01.png"
+      },
+      {
+        "type": "heading",
+        "text": "Website concept",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "This website was designed for the app called Miratia (I also redesigned the app, click here to see it). The page features playful, bold colors, simple icons and fonts paired with beautiful illustrations (drawn by my illustrator friend, László Kiss). The color scheme and the style is inherited from the app redesign, but additionally incorporates moody photographs of the locations, where the city puzzle games take place.",
+        "html": "This website was designed for the app called Miratia (I also redesigned the app, click here to see it). The page features playful, bold colors, simple icons and fonts paired with beautiful illustrations (drawn by my illustrator friend, <a href=\"http://laccerado.com/\">László Kiss</a>). The color scheme and the style is inherited from the app redesign, but additionally incorporates moody photographs of the locations, where the city puzzle games take place."
+      },
+      {
+        "type": "heading",
+        "text": "Mobile version",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The site is completely responsive and the UX is just as smooth on smaller devices. This was a really important standpoint in this project, since the app is used and marketed on smaller mobile devices, it is expected that the website will have most of its users browsing on the very same devices."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-09-02.jpg"
+      },
+      {
+        "type": "heading",
+        "text": "Miratia application",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "If you want to know more about the Miratia application design, you can find it here, or under the UI/UX menu.",
+        "html": "If you want to know more about the <a href=\"http://aczel.xyz/graphicdesign/uiux/miratia-app/\">Miratia application design, you can find it here</a>, or under the UI/UX menu."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-09-03.png"
+      }
+    ]
+  },
+  "instant": {
+    "sourceTitle": "Instant",
+    "sourceSlug": "instant",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Instant",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Instant is one of the most popular ruin pubs in Budapest, Hungary. It is a trendy, contemporary, alternative bar and gathering venue that attracts lots of locals and tourists of all ages and many backgrounds. Ruin pubs have a mixture of run-down rooms, contemporary art installations and a very unique vibe."
+      },
+      {
+        "type": "heading",
+        "text": "The website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "When I redesigned instant.co.hu I wanted to create a minimalistic “hipster” website that acts as a frame and later can be filled with colourful collages and photographs about the place. I used the classic Helvetica with the also classic Arial typeface. The goal was to appeal to the main audience of instant and create a simple structure that they can easily understand and navigate trough to find the most important informations about the venue, while emitting the same contemporary feeling as the place itself.",
+        "html": "When I redesigned <a href=\"http://instant.co.hu/\">instant.co.hu</a> I wanted to create a minimalistic “hipster” website that acts as a frame and later can be filled with colourful collages and photographs about the place. I used the classic Helvetica with the also classic Arial typeface. The goal was to appeal to the main audience of instant and create a simple structure that they can easily understand and navigate trough to find the most important informations about the venue, while emitting the same contemporary feeling as the place itself."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-10-01.jpg"
+      }
+    ]
+  },
+  "valio-plastics": {
+    "sourceTitle": "Valio-Plastics",
+    "sourceSlug": "valio-plastics",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Valio-Plastics Kft. is a reseller of plastic and foil products, and is a mid-size company based in Budapest, Hungary. They wanted two separate, but intertwined website that works as a portfolio and knowledge base about their products and services, but also houses educative content about the usage of the products and the industry – therefore driving traffic to the website, and acts as a solid base for the SEO-optimized content."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-11-01.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "Valio-plastics.hu became a hub about the plastic products (this was their original domain), and a completely new domain, arlon.co.hu was also added, which became the host of the foil products (produced by Arlon Ltd.). Their new pair of websites shares the layout and basic styles, the only main differences (besides the actual content) are the color scheme – where the original kept the Valio-Plastics company colors and the new additon used the Arlon Ltd. orange as the primary color."
+      },
+      {
+        "type": "heading",
+        "text": "Imagery",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "They had high-quality products, but the presentation was poor and always challenging, because of the nature of these items (mostly raw pieces of plastic and rolls of foil). A new photographic imagery was also created (this was also done by me) that presents the products in a minimalistic environment and turns their visual simpleness into their strength. You can check out the product images here",
+        "html": "They had high-quality products, but the presentation was poor and always challenging, because of the nature of these items (mostly raw pieces of plastic and rolls of foil). A new photographic imagery was also created (this was also done by me) that presents the products in a minimalistic environment and turns their visual simpleness into their strength. <a href=\"http://aczel.xyz/photo/productphoto/valioplastics-product-photography/\"><strong>You can check out the product images here</strong></a>"
+      },
+      {
+        "type": "paragraph",
+        "text": "The visual refreshing of the imagery also included new portraits about the employees of Valio Plastics. Here, the primary principles stayed the same – simple, professional and natural. You can check out the portraits here",
+        "html": "The visual refreshing of the imagery also included new portraits about the employees of Valio Plastics. Here, the primary principles stayed the same – simple, professional and natural. <a href=\"http://aczel.xyz/photo/portrait/corporate-headshots/\"><strong>You can check out the portraits here</strong></a>"
+      }
+    ]
+  },
+  "paloznaki-jazz-picnic": {
+    "sourceTitle": "Paloznaki Jazz Picnic",
+    "sourceSlug": "paloznaki-jazz-picnic",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Paloznaki is an annual jazz and wine festival located in Paloznak, Hungary."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo was created for an online contest for the Paloznaki Wine and Jazz Picnic. It merges two symbols, while maintaining the elegance, classiness of both subjects of the event, while staying minimalistic and energetic. The serif typeface plays the same note as the graphic; classic and elegant, but not too invasive."
+      }
+    ]
+  },
+  "myspirit": {
+    "sourceTitle": "MySpirit",
+    "sourceSlug": "myspirit",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "The MySpirit app is part of the MyBody Health Program. It is an application that helps you track your progress in medical treatments, lets you schedule appointments and spa services while you stay in Spirit Hotel (***** Hungary). Besides this you can read related articles and learn about the treatments, services, or follow up your progress after your stay in the hotel.",
+        "html": "The MySpirit app is part of the <a href=\"http://aczel.xyz/2016/11/14/mybody-health-program/\">MyBody Health Program</a>. It is an application that helps you track your progress in medical treatments, lets you schedule appointments and spa services while you stay in Spirit Hotel (***** Hungary). Besides this you can read related articles and learn about the treatments, services, or follow up your progress after your stay in the hotel."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo needed to reflect on the angel symbol of the Spirit Hotel and the MyBody Health Program, with a combination of a reference to water, since the health program – being in a wellness / spa hotel – revolves around the healing power of water. The graphic of the logo needed to be used in a standalone version also, like as an app icon. With the logo the same typeface and color scheme was used as in other parts of the brand."
+      },
+      {
+        "type": "heading",
+        "text": "The App",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The app combines minimalist user interface, wire style icons, classic fonts with spectacular photographs, videos and realistic 3D animations."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-13-01.png"
+      }
+    ]
+  },
+  "corun-vision-studio": {
+    "sourceTitle": "Corun Vision Studio",
+    "sourceSlug": "corun-vision-studio",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Corun Vision Studio was a collective of the works of Balázs Mészáros (alias Corun), writer, poet, director, and a good friend of mine. He wanted a logo from his initials that is visually strong and energetic, and a website that follows the same scheme, but with a minimalistic approach."
+      }
+    ]
+  },
+  "tintatarto-kft": {
+    "sourceTitle": "Tintatartó Kft.",
+    "sourceSlug": "tintatartó-kft",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Tintatartó Kft. is a hungarian wholesale dealership of office supplies, that mainly sells ink cartridges. They made an online contest for their brand identity design (logo design included) and this was my entry."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo and the brand",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo needed to be monochrome and just as good in inverse. My design included a splash of ink that reappears in most of the brand identity. The splash graphic was paired with a monospaced font that is used in the logo and titles, and a serif font that is used in the longer, or smaller texts. The document templates and other parts of the brand are quite formal when it comes to typography or layout, the splashes and drops of ink contrasts this, making a professional, but playful balance."
+      }
+    ]
+  },
+  "poc-co": {
+    "sourceTitle": "POC Co.",
+    "sourceSlug": "poc-co",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "POC Co. is an Automation vertical B2B facilitator located in India. And what that is… they work on automatisation of public, work or private spaces.",
+        "html": "<a href=\"http://www.poc.co.in/\">POC Co.</a> is an Automation vertical B2B facilitator located in India. And what that is… they work on automatisation of public, work or private spaces."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo was created trough an online competition, where I was selected as the winner. The logo represents a “task” handed over from a human to a machine. There are different versions with the company name included, but they share the same graphic and color scheme. The color scheme was created to feature a modern, high-tech company."
+      }
+    ]
+  },
+  "sunday-melancholy": {
+    "sourceTitle": "Sunday Melancholy",
+    "sourceSlug": "sunday-melancholy",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Sunday Melancholy is an ambient-funk-chill band of five members. The formation feeds off of the grunge lifestyle of the 90’s and uses guitar, bass, keyboards, flute and percussion besides polyphonic singing to deliver a light musical experience."
+      },
+      {
+        "type": "heading",
+        "text": "The logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "They wanted a logo that is “dirty” and just doesn’t care with a circular pattern that can be interpreted as a smudge of coffee or wine, depending on the context. This was used on their singles as a cover, or on social media and on some merchandise, such as t-shirt and cups."
+      }
+    ]
+  },
+  "imaginary-publishing": {
+    "sourceTitle": "Imaginary Publishing",
+    "sourceSlug": "imaginary-publishing",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Imaginary publishing is all made up!",
+        "level": 3
+      }
+    ]
+  },
+  "danceby-com": {
+    "sourceTitle": "Danceby.com",
+    "sourceSlug": "danceby-com",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Danceby.com was an online website for dancing tutorials. They wanted to incorporate their url in the logo with a recognisable symbol. I used a classic serif font for the text with a dancer in the place of the “y”, that can be used separately as an icon."
+      }
+    ]
+  },
+  "mybody-health-program": {
+    "sourceTitle": "MyBody Health Program",
+    "sourceSlug": "mybody-health-program",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "MyBody Health Program is a medical and wellness treatment package that takes place in luxury hotels such as Carbona or Spirit Hotel. In the heart of the program is an app called mySpirit app, that the patient can use to schedule appointments with doctors or therapists and follow his/her progress and condition. The program puts great emphasis on ayurvedic treatments besides traditional medicine and creates an environment for its participants to relax and be renewed both physically and mentally.",
+        "html": "MyBody Health Program is a medical and wellness treatment package that takes place in luxury hotels such as Carbona or Spirit Hotel. In the heart of the program is an app called <a href=\"http://aczel.xyz/2016/11/13/my-spirit/\">mySpirit app</a>, that the patient can use to schedule appointments with doctors or therapists and follow his/her progress and condition. The program puts great emphasis on ayurvedic treatments besides traditional medicine and creates an environment for its participants to relax and be renewed both physically and mentally."
+      },
+      {
+        "type": "heading",
+        "text": "About the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "I designed this logo while working at Spirit One Creative Agency and it was created when I was working on the mySpirit app. It’s typeface is the same as the apps, since I wanted to create a universal identity for all the products in this line. For the icon I decided to go for an angel-like figure, with “protecting” spread wings, to communicate the message that the health program provides an all round mental-physical-spiritual experience."
+      }
+    ]
+  },
+  "reed-s-pharmacy": {
+    "sourceTitle": "Reed's Pharmacy",
+    "sourceSlug": "reed-s-pharmacy",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "This logo was designed for an online design contest for a new pharmacy franchise located in several big cities in the US."
+      },
+      {
+        "type": "paragraph",
+        "text": "They wanted a simple, modern logo that clearly communicates their business."
+      }
+    ]
+  },
+  "plm-perspektiva-2015": {
+    "sourceTitle": "PLM Perspektíva 2015",
+    "sourceSlug": "plm-perspektíva-2015",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About the event and the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "PLM Perspektíva 2015 was a convention for the CAD / CAM / PLM industry professionals held in a cinema complex in Budapest. The organizers main focus was the debut of the Siemens Nanobox which also became the symbol and logo of the event (in a perspective view – reflecting on the name of the event). The product was reduced to simple lines that create a robust form and paired with a simple, modern typeface that uses the same fonts as the company brand."
+      },
+      {
+        "type": "image",
+        "alt": "The Siemens Nanobox – “The Box PC is suitable for measuring, controlling, regulating and verifying process and machine data, for industrial image processing or for decentralized visualization in combination with SIMATIC Flat Panels.”",
+        "caption": "The Siemens Nanobox – “The Box PC is suitable for measuring, controlling, regulating and verifying process and machine data, for industrial image processing or for decentralized visualization in combination with SIMATIC Flat Panels.”",
+        "file": "wix-post-22-01.jpg"
+      },
+      {
+        "type": "paragraph",
+        "text": "All the event printed materials used the same design elements and color scheme, making it the first completely branded and designed event of the company."
+      }
+    ]
+  },
+  "hblms": {
+    "sourceTitle": "HBLMS",
+    "sourceSlug": "hblms",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About HBLMS and the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The company is the result of the merging of three already existing companies. All of these companies had their brand colors and visual style guides and this new formation was intended to hold them together to provide an all-round solution for building surveying, but in the same time the companies keep their independent functioning."
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo uses the colors of these three formations and reflects the 3 cornerstones with the form too. The full version used the letters “HBLMS” under the icon, but the board has not officially decided on the name yet, so the final version with lettering is still under production."
+      }
+    ]
+  },
+  "bubblefootball-budapest": {
+    "sourceTitle": "Bubblefootball Budapest",
+    "sourceSlug": "bubblefootball-budapest",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About bubblefootball BUDAPEST",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Bubblefootball Budapest provides a fun activity for locals and tourists (like travelling stag parties) where the group has to shove themselves in an inflatable ball and try to play football."
+      },
+      {
+        "type": "paragraph",
+        "text": "You can learn more about the activity on their website (which was also designed by me).",
+        "html": "<a href=\"http://bubblefootball-budapest.com/\">You can learn more about the activity on their website</a> (which was also designed by me)."
+      },
+      {
+        "type": "heading",
+        "text": "About the logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo uses the same colors as the website and communicates the same fun, lighthearted feeling as the activity itself. The middle icons represent two players colliding and uses the brand colors, making it the symbol of the service and it can be used separately when space is limited."
+      },
+      {
+        "type": "heading",
+        "text": "About the website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The website uses the same principles as most of my products designed with WLRP Ltd. – simple, engaging and informative landing page, with a straight-forward call to action that leads to the booking. The SEO is strengthened with regularly updated blog posts and FAQ."
+      }
+    ]
+  },
+  "novolab": {
+    "sourceTitle": "Novolab",
+    "sourceSlug": "novolab",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Novolab is a company that sells medical equipment. They wanted to refresh their brand and logo, since it was outdated. I cleaned up the original logo, changed the typeface to a more modern one and moved the whole image to a more energetic direction that represents a high-tech company."
+      }
+    ]
+  },
+  "granit": {
+    "sourceTitle": "GranIT",
+    "sourceSlug": "granit",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "GranIT is an IT company specialised in factory CAD/CAM/PLM softwares. They wanted a new and fresh brand identity with a new logo."
+      },
+      {
+        "type": "heading",
+        "text": "About the design",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The design was inspired by the futuristic companies of video games and movies. High-tech, precise, but friendly and fresh. Used a simple geometric typeface all trough the brand identity and combined the logo with simple marks that represented each sub-division of the company. The goal was to create an appealing visual language that can be used both inside the company and for marketing purposes."
+      }
+    ]
+  },
+  "aczel-varosepitesz-bt": {
+    "sourceTitle": "Aczél Városépítész Bt.",
+    "sourceSlug": "aczél-városépítész-bt",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Aczél Városépítész Bt. was founded by my father, Aczél Gábor in 2007, and it operates in the field of urban design. The company already had a logo designed by him, but it needed refreshing and a new company website with it.",
+        "html": "Aczél Városépítész Bt. was founded by my father, <a href=\"https://hu.wikipedia.org/wiki/Acz%C3%A9l_G%C3%A1bor_(%C3%A9p%C3%ADt%C3%A9sz)\">Aczél Gábor</a> in 2007, and it operates in the field of urban design. The company already had a logo designed by him, but it needed refreshing and a new company website with it."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo comes from the letters A (for Aczél) and V (for Városépítész – Urban designer). The shapes and colors also represent the structure of an urban design plan – roads separating blocks or green areas between artificial environment. The company values green areas and both human- and eco friendly environment and also modern, simple architecture so the company brand is also built to represent these guidelines with its color, font and form usage."
+      },
+      {
+        "type": "heading",
+        "text": "The website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The website, aczelvaros.hu was also designed with the same principles. Simple, minimalist design with very few decorative graphics and photos, so the already beautiful plans and documentation can take the main role and act as the eye-candy for the public. The site is mainly a portfolio for the company. The audience who is interested in the past and current work of the company can browse between the plans, articles and publications.",
+        "html": "<a href=\"http://aczelvaros.hu/\">The website, aczelvaros.hu</a> was also designed with the same principles. Simple, minimalist design with very few decorative graphics and photos, so the already beautiful plans and documentation can take the main role and act as the eye-candy for the public. The site is mainly a portfolio for the company. The audience who is interested in the past and current work of the company can browse between the plans, articles and publications."
+      },
+      {
+        "type": "image",
+        "alt": "aczelvaros.hu on desktop",
+        "caption": "aczelvaros.hu on desktop",
+        "file": "wix-post-27-01.jpg"
+      },
+      {
+        "type": "image",
+        "alt": "aczelvaros.hu on mobile – the smallest version of the responsive logo can be seen in the header",
+        "caption": "aczelvaros.hu on mobile – the smallest version of the responsive logo can be seen in the header",
+        "file": "wix-post-27-02.jpg"
+      }
+    ]
+  },
+  "orthograph": {
+    "sourceTitle": "Orthograph",
+    "sourceSlug": "orthograph",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About OrthoGraph, the company",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "“OrthoGraph Ltd. was established in Hungary, 2004 by private investors. Its main activity is the development of mobile based data acquisition software with focus on graphical real-estate measurement. Our goal is to create products by which we can provide wide range support for graphical real-estate measurement. This does not mean only the flow control of survey processes during on-site measurements, and increasing the productivity of our users, but includes also the high level support of e.g. facility management and inventory creation activities what makes possible the usage of measured electronic data in these areas."
+      },
+      {
+        "type": "paragraph",
+        "text": "We base our activities on those professional specialists, who are responsible for the effective usability and quality of our portfolio, and their experience is won from their everyday professional work. These criteria are defined by the continuous cooperation with our customers and partners, who use our products in their everyday activities. This makes us possible to become the market leader and keep this position by us for the future too. As far as our products are giving a solution for the needs coming from our customers’ everyday experiences, we can provide numerous unique solutions, that are unique worldwide too.”"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-01.jpg"
+      },
+      {
+        "type": "heading",
+        "text": "OrthoGraph’s visual identity",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "“We use simple and modern visual elements that places the content above all. The vibrant, but harmonizing colors and the minimalist interfaces and illustrations help our users to quickly understand our products and achieve their goals withouth distracting them from their work."
+      },
+      {
+        "type": "paragraph",
+        "text": "We create user interfaces with a coherent style and symbol system that can be broken down to the very basic symbols that our wide range of users are already familiar with and a color scheme that has an easy-to-follow internal logic, which seamlessly helps anyone working with OrthoGraph products trough the optimal workflow."
+      },
+      {
+        "type": "paragraph",
+        "text": "In case of illustrations – both drawn and photographed – we create our own, since we believe that custom visual ques are the most effective in communicating the right message without any distracting details.”"
+      },
+      {
+        "type": "paragraph",
+        "text": "The quotes were taken from the “OrthoGraph Orange – Visual identity guidelines” brand identity guide.",
+        "html": "<em>The quotes were taken from the “OrthoGraph Orange – Visual identity guidelines” brand identity guide.</em>"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-02.jpg"
+      },
+      {
+        "type": "heading",
+        "text": "The logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph’s logo was refreshed by me in 2015, when I started working with the company. The symbol was flattened and simplified and the typeface was replaced so it better suits modern standards. Also different variations were created, like the monochrome version that can be used on coloured background, or the quadrangular version."
+      },
+      {
+        "type": "heading",
+        "text": "The colors",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The original colour of the company was tweaked and registered as “OrthoGraph Orange” in the brand identity guide, and a new colour, “Innovative Blue” was introduced. The company is mostly presented with OrthoGraph Orange, but the applications and services use the Innovative Blue as an indicator for interactive elements and this colour is also present in the marketing materials when showcasing the products."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-03.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-04.png"
+      },
+      {
+        "type": "heading",
+        "text": "Icons and illustrations",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "All the icons and illustrations were custom created for OrthoGraph both for the applications and the websites, or printed materials."
+      },
+      {
+        "type": "heading",
+        "text": "Websites",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph has several websites, but orthograph.net is the main one. It is a huge website running on a custom wordpress theme that showcases the products, offers downloads and information about the services and provides contact with our partners and users.",
+        "html": "OrthoGraph has several websites, but <a href=\"http://orthograph.net/\">orthograph.net</a> is the main one. It is a huge website running on a custom wordpress theme that showcases the products, offers downloads and information about the services and provides contact with our partners and users."
+      },
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph Cloud Services has a separate website, where the cloud services can be accessed and registration for the applications can be done. You can learn more about the cloud.orthograph.net website here.",
+        "html": "OrthoGraph Cloud Services has a separate website, where the cloud services can be accessed and registration for the applications can be done. You can learn more about the <a href=\"https://aczel.xyz/graphicdesign/logorefresh/orthograph-ltd/\">cloud.orthograph.net website here.</a>"
+      },
+      {
+        "type": "paragraph",
+        "text": "The company also have several microsites that were created to reach different audiences. These are mostly pure html/css websites, since the goal was to create simple, fast and SEO-friendly websites."
+      },
+      {
+        "type": "heading",
+        "text": "OrthoGraph Survey System applications",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Now OrthoGraph I is the main product of the company – and is the solution for all our customers. This is the second generation of the app family that is redesigned by me, the first generation (where the new style was introduced) is OrthoGraph for tablets.",
+        "html": "Now<a href=\"http://aczel.xyz/graphicdesign/uiux/orthograph-building-survey-software/\"> OrthoGraph I</a> is the main product of the company – and is the solution for all our customers. This is the second generation of the app family that is redesigned by me, the first generation (where the new style was introduced) is <a href=\"http://aczel.xyz/graphicdesign/uiux/orthograph-for-tablets/\">OrthoGraph for tablets</a>."
+      },
+      {
+        "type": "heading",
+        "text": "Printed marketing materials",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Flyers, roll-ups, stand designs, posters and business cards are all covered in the “OrthoGraph Orange” brand identity guide. The company has multiple styles for its different products and audiences, but the basics, such as colors or fonts remain consistent. The flyers are frequently redesigned and refined, they change and evolve with the company and its products."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-05.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-06.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-07.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-08.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-28-09.png"
+      }
+    ]
+  },
+  "beer-bus-budapest": {
+    "sourceTitle": "Beer Bus Budapest",
+    "sourceSlug": "beer-bus-budapest",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Beer Bus Budapest as a sightseeing method",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Beer Bus Budapest is a party bus that goes around the city in a fixed schedule, picking up passengers at specific locations, similarly like the HopOn-HopOff franchise. The bus goes along popular sightseeing locations and most of the cities main attractions can be seen from the bus – while tapping your own glass of beer and drinking it on the open top vehicle."
+      },
+      {
+        "type": "paragraph",
+        "text": "The main target group is tourists who are seeking a more relaxed kind of sightseeing than the regular city bus tours, or just interested in the twist of drinking while touring."
+      },
+      {
+        "type": "paragraph",
+        "text": "The main competitor is the HopON-HopOff franchise."
+      },
+      {
+        "type": "heading",
+        "text": "Beer Bus Budapest as a party bus",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "The Beer Bus also functions as a party transfer in the evening, where the target group is a much younger audience who are seeking a unique party experience or looking for an exciting way to transfer to their final party destination. This group would not only consist of tourists but locals, who later can be converted to regular customers."
+      },
+      {
+        "type": "heading",
+        "text": "About the Beer Bus Budapest logo refresh",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Since the mixed target audiences and the varying use cases, the logo had to be more generic and multi-purpose without any direct reference to sightseeing or party culture. The original logo had lots of details that were distracting and unnecessary, the readability also could be improved in several ways. These details along with the circular shapes were removed."
+      },
+      {
+        "type": "paragraph",
+        "text": "The Budapest text was brought closer in size to the rest of the logo’s ratios to imrprove readability, and increase the emphasis on the location. The black stripes in the background were abandoned and this had a great impact on the symbols style, it was no longer a reference to a soccer club’s emblem."
+      },
+      {
+        "type": "paragraph",
+        "text": "The calligraphy was tweeked and the parts were slightly adjusted and reorganized. An exclamation mark was added to visually hold the logo together and to emit an energetic, cheerful vibe."
+      },
+      {
+        "type": "image",
+        "alt": "The evolution of the “cleaning up” of the Beer Bus Budapest logo",
+        "caption": "The evolution of the “cleaning up” of the Beer Bus Budapest logo",
+        "file": "wix-post-29-01.jpg"
+      }
+    ]
+  },
+  "rizsa-bar": {
+    "sourceTitle": "Rizsa Bar",
+    "sourceSlug": "rizsa-bar",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Rizsa bar is a small pub by night and café by day, located in Budapest downtown at Király street, which is one of the most visited street in the hungarian capital. The street is famous about it’s busy nightlife and pubs and is often visited by tourists and locals as well."
+      },
+      {
+        "type": "paragraph",
+        "text": "Rizsa was one of the cheaper bars, but it has a really good location, so that was one of the things that they wanted to change with the re-brand. The general atmosphere of the bar was not well polished and the original “Rizsa presszó” name suggested a small, cheap place – hence we suggested to change the name to “Risza bar”, which has the additional benefit of being more universal for not hungarian speaking people."
+      },
+      {
+        "type": "heading",
+        "text": "The Rizsa Bar logo",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "“Rizsa” in hungarian slang means “aimless speaking or prattle”, something like “blabla” – which is a good starting point for a place where people get together on dates, meet-ups just to speak next to a coffee, beer or some other beverage. The original logo used a speach bubble, this concept we kept, but gave it a modern, minimalist look. Instead of the original comic-esque speach bubble we used a more digital chat-like bubble. Three dots were also added to suggest the open and ongoing nature of the conversation."
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo has three versions – one with the “.bar” text next to the speach bubble, which will be the future tld of the website. A micrologo also exists that can be used in small spaces, like the website favicon."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-30-01.png"
+      },
+      {
+        "type": "heading",
+        "text": "The Rizsa Bar brand",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "We did not do a whole brand design for Rizsa Bar, but while designing the logo, one of the priorities was that it can be extended to the whole brand. For example the chat bubble can be used to suggest a conversation – instead of the one-sided nature of a single speach bubble – when paired with a reflected version of the bubble."
+      },
+      {
+        "type": "paragraph",
+        "text": "Another suggestion was to embrace the theme of aimless conversation and use “BLA BLA” in a repeated pattern for decorating the place and it’s printed materials."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-30-02.png"
+      }
+    ]
+  },
+  "eurocell": {
+    "sourceTitle": "Eurocell",
+    "sourceSlug": "eurocell",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Eurocell",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Eurocell is a company that sells a construction material called foam glass. It is an environmentally friendly, modern material, that has many implications in construction, but being relatively new, it is not widely used in eastern Europe."
+      },
+      {
+        "type": "heading",
+        "text": "The logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo emits a strong, stable vibe with its form and color, and stays faithful to the classic examples of design in this area."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-31-01.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "The circular pattern of the graphic symbolises a cell among other cells – the idea comes from the cellular structure of the material itself – and this graphic can be used as a texture too with small modifications. The logo needed to be visible and recognisable in conditions given by the construction (bad lighting, damaged stickers, etc…) and it had to become an easily recognisable symbol of the product and the company both on company documents and on labels used on the product. The logo is responsive, in small spaces (such as the mobile website) a small, compact symbol is used."
+      },
+      {
+        "type": "heading",
+        "text": "The website and imagery",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The website pairs a webfont variant of a similar font that is used in the logo and pairs it with simple user interface and a balanced color palette. The brand yellow is in contrast with the smooth, cold colors of the photographs. Since no real documentation was available about the product, I asked for a sample of the material and made the photos myself for this project. Of course the website is responsive and has separate version for mobile devices."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-31-02.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "Branding",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The brand identity follows the same guidelines as the logo and the website (since the logo and the website is part of the brand) – simple, strong and powerful. The company asked for flags, posters, and other assets for a representative panel at expos. These were made to create a recognisable, unified brand that spans from business cards to every printed and digital material."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-31-03.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-31-04.png"
+      }
+    ]
+  },
+  "byvarga": {
+    "sourceTitle": "byVarga",
+    "sourceSlug": "byvarga",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About byVarga",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "ByVarga is a London based luxury womenswear label by fashion designer Fanni Varga."
+      },
+      {
+        "type": "heading",
+        "text": "The Logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo needed to present an elegant, trendy and luxurious brand. Since its the symbol of a clothing label it needed to look just as good in embroidered form as in digital. The logo has two states, the classic state that is seen in offline mediums has a horizontal line trough the middle, while the online version (used where it is possible) is interactive and only has the horizontal line when the user hovers over the logo."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-32-01.jpg"
+      },
+      {
+        "type": "heading",
+        "text": "The website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The byvarga.com website follows the same minimalistic, modern and high-end look that the rest of the brand. This is achieved mainly trough simple typographic elements and quality imagery. It is also a really compact and fast website running on WordPress."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-32-02.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "Imagery",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Some of the images about the products were also created by me. These images follow the same guideline of simplicity and high-fashion look."
+      }
+    ]
+  },
+  "dharmatronic": {
+    "sourceTitle": "Dharmatronic",
+    "sourceSlug": "dharmatronic",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Dharmatronic Psychedelic Environments",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Dharmatronic is a garage start-up that manufactures psychedelic decorations mainly for psytrance parties. They make everything from simple materials, but their team has no limit on imagination, so they managed to work with the biggest local event organizers."
+      },
+      {
+        "type": "heading",
+        "text": "The logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Bence Hatala, the founder of Dharmatronic wanted a unique logo that is just as other-wordly as their products. For reference he showed me his tattoo on his arm which was based on crop-circles. Inspired by this, but drifted far I created the first sketch of the logo. After very minor tweaking I managed to create the logo that they use to this day. The “swirly” circle above the text is used separately on small areas, such as in the header of a mobile website, where the full sized logo can not be used."
+      },
+      {
+        "type": "heading",
+        "text": "The Dharmatronic website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Dharmatronic originally had four collections: “Magic forest”, “Crystal Island”, “Alien crash site” and “Holographic hallucinations”. They wanted to represent these collections with illustrations that can give the same feeling on the website that they want to achieve when you are inside their installations. The illustrations were created in photoshop mostly with compositing technique. Later the website was expanded with another collection called “Alien hatchery”."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-33-01.jpg"
+      },
+      {
+        "type": "heading",
+        "text": "Illustrations from the website",
+        "level": 3
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-33-02.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-33-03.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-33-04.jpg"
+      },
+      {
+        "type": "paragraph",
+        "text": "Stationary design"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-33-05.png"
+      }
+    ]
+  },
+  "flash-episode": {
+    "sourceTitle": "Flash Episode",
+    "sourceSlug": "flash-episode",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Flash Episode",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Flash Episode is a formation of two hungarian dj’s; Steve Deluxe and Dj Eduardo. Flash Episode is going to be a series of regular house parties and events, for now it is a monthly podcast that presents the music of the hosts and occasional guest musicians."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-34-01.gif"
+      },
+      {
+        "type": "heading",
+        "text": "The Logo and the brand",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The brand identity needs to represent a fresh, energetic and also a quality event. Since their main channel is digital, I was free to use colors and fonts that look best on screens. The design features glitched fonts, aggressive cyan color, geometric objects paired with harmonic imagery about nature, urban life, creating a duality of opposites that we can all relate to and that is in the art of electronic music."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-34-02.png"
+      },
+      {
+        "type": "heading",
+        "text": "The podcast covers",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "These covers follow the same scheme in structure and color. This is rarely modified and only when justifiable – like when a guest dj is the producer or when the two dj’s make a back-to-back mix – in these cases the graphic and some minor elements change to suit the special occasion and to make differentiation between the podcasts easier. The imagery of the podcast is customised for each month both to the season and to the feeling of the track."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-34-03.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-34-04.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-34-05.jpeg"
+      }
+    ]
+  },
+  "psyinfo": {
+    "sourceTitle": "psyinfo",
+    "sourceSlug": "psyinfo",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "About the psyinfo project"
+      },
+      {
+        "type": "paragraph",
+        "text": "Psyinfo.hu is the biggest own project that I ever made (and I am still making it) with my friend and programmer colleague, Peter P. Pajer. It is a website for psychedelic events like local parties and international festivals all over the world. It is also a platform for event organizers, dj’s, shops, webshops and manufacturers that are related to the psychedelic scene."
+      },
+      {
+        "type": "quote",
+        "text": "We are proud to say that psyinfo.hu has the biggest database of always up-to-date hungarian events in this scene... and for now it is the only platform for manufacturers where they can present their products and services directly to the audience."
+      },
+      {
+        "type": "heading",
+        "text": "The website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "There is lot to write about. Among the before mentioned features we also have web-based radio stations, filters and maps for browsing shops, and the festival / event database is refreshed automatically every week, so the website not only offers the biggest list of events, but also the most up-to-date one too."
+      },
+      {
+        "type": "heading",
+        "text": "The psyinfo website across devices",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "At the moment we are working on features that gets our users more involved with our content. Such as rating, commenting, forum, customisable user profiles. These profiles will have a premium version for shops and organisers. Trough this they can manage their own page on psyinfo, update their content and information whenever they want and even request advertisement and shout-outs on our channels."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-35-01.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "Marketing & social media",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "We have two main front lines in scaling the formation of psyinfo; we keep in touch with our partners that are presented on our website and encourage them to participate in our contests and promotions and from time to time give them exclusive offers that helps them grow their own business trough cooperation. Our team likes to stay in touch personally with these partners if its possible, but we also plan to do a scheduled separate newsletter for them that gives information about certain changes, special offers or our ideas."
+      },
+      {
+        "type": "paragraph",
+        "text": "The other channel is directed to our users. The psychedelic scene is built around exact values like friendship, love and good will and we would like to continue to promote these values and implement it in our communication. We are trying to make a friendly environment for all the people who are interested in our culture. Whenever we can, we go to events that we are promoting and make photographs, that we share afterward on social media platforms and encourage people to tag each other and share our albums. We also organise small gatherings where we can directly meet our users – and of course they can meet each other. – It is not uncommon that these gatherings end in friendships and interesting business partnerships."
+      },
+      {
+        "type": "heading",
+        "text": "Partners and funding",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "As for now, we are a non-profit organisation. Our goal is to help others grow their business and develop ideas, products – even if it is a low-budget, or non-budget startup -. We worked with several shops, workshops and other non-profit organisations, helped each other with our professional insight and available tools. We are open to input and the personal touch of everyone who works with us and are also open to give our thoughts and resources to people who approach us."
+      },
+      {
+        "type": "paragraph",
+        "text": "Soon premium accounts will be available on our site. These will have useful features for our partners and it will be also our chance do develop and to have bigger budget, so that we can pursue are future plans (such as a physical, printed envelope version of our website). Our goal is also to mentor artists and give them platform for their art, so they can reach bigger audience and with time, expand the hungarian psychedelic culture with exhibitions and temporary art-markets."
+      }
+    ]
+  },
+  "sunme": {
+    "sourceTitle": "sunme",
+    "sourceSlug": "sunme",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About sunme",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Sunme is a company that provides a professional, in-browser solar capacity modelling service to end-users and solar panel installers."
+      },
+      {
+        "type": "heading",
+        "text": "The logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logos main motive is the “u” that is sliced up by sunshine rays. It has three sizes, the full logotype contains the “.solar” tld under the “sunme” text and the micro-logo is reduced to only the “u”."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-01.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "The brand imagery",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The company imagery has multiple tiers by style and purpose. The primary “hero” images are composit images that are mostly realistic, with a surreal element – like a huge Sun -. These images are used as cover images for campaigns and are a central element of the website. They are aimed to grab attention and communicate that solar energy is a powerful, huge source of power, yet easily and harmlessly harnessable by anyone."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-02.jpeg"
+      },
+      {
+        "type": "paragraph",
+        "text": "The second tier of images use vivid, colorful images about the subject of the relating article or post and pairs them with simple, but large scale text to create a sense of greatness with the contrast in sizes. The text is also placed “inside” the scene to embrace this sense of different ratios."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-03.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-04.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-05.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "A few pages from the Brand Styleguide",
+        "level": 3
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-06.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-07.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-36-08.jpeg"
+      }
+    ]
+  },
+  "romkocsmakalauz-hu": {
+    "sourceTitle": "Romkocsmakalauz.hu",
+    "sourceSlug": "romkocsmakalauz-hu",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About Romkocsmakalauz or “We Love Ruin Pubs”",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "The Romkocsmakalauz website collects the top ruin pubs of Budapest and is hosted on both a hungarian domain (romkocsmakaluz.hu) and on an english (wlrp.com – as in “We love Ruin Pubs”). The main purpose of the website is to provide guidance in the Budapest alternative pub scene for tourists and provide a list of selected pubs. The website also displays several activities that can be combined with pubbing, such as pubcrawl or the infamous beerbike."
+      },
+      {
+        "type": "paragraph",
+        "text": "WLRP’s purpose is the become one of the core products of the company and to become as the main identifier of the formation."
+      },
+      {
+        "type": "heading",
+        "text": "The Romkocsmakalauz logo and brand",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Our main goal when creating the new brand was to make a fresh, modern and recognizable style and color palette that opposes the previous conventions when ruin pubs were marketed. The new brand advertises quality places and services and uses modern techniques to do so."
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo was the first element of the RKK rebrand and it is the symbol of the completeley rethinked website. It has vivid, neon colors and a modern, simple form. The “KK” symbol of the logo canbe used separately or as part of a pattern too. Since the logo contains the services name, it has to versions for the two languages and in the english version the logos symbol is mutated fully to abstraction."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-37-01.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-37-02.png"
+      },
+      {
+        "type": "heading",
+        "text": "The website and social media",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The website generates traffic organically by its superior SEO optimized individually to the displayed ruin pubs and for generic keywords aswell. Visitors are also channeled trough social media, where the brands identity is presented consistently."
+      },
+      {
+        "type": "paragraph",
+        "text": "On social media, we post playful, fun, yet recognisable graphics that reflect the chaotic style of the ruin pub scene."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-37-03.gif"
+      },
+      {
+        "type": "paragraph",
+        "text": "Ruin pubs can be browsed both by name and location and a summary with all the important details are displayed with backlinks to the official websites. Of course the site is fully responsive and up to todays standards. It was created in HTML, CSS and PHP, the only exception is the integrated and customized Google Maps iframe, so it is fast and reliable. It was one of the WLRP projects where the front-end was not only designed, but developed by me."
+      }
+    ]
+  },
+  "escape-room-budapest": {
+    "sourceTitle": "Escape Room Budapest",
+    "sourceSlug": "escape-room-budapest",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "About the Escape Room Budapest brand",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "Escape Room Budapest is (An escape room is a physical adventure game in which players solve a series of puzzles and riddles using clues, hints and strategy to complete the objectives at hand. – Wikipedia) located in the heart of the hungarian capital. The main target group is both tourists who visit the city and looking for a unique experience close to the city center, and locals who are already familiar with esecape rooms. Our goal was to convert them to returning customers that try out all the rooms and revisit the establishment when the rooms are updated."
+      },
+      {
+        "type": "paragraph",
+        "text": "The company had a previous logo, but not an overall brand design. The existing logo was scratched during the rebrand."
+      },
+      {
+        "type": "heading",
+        "text": "The Escape Room Budapest logo",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The logo emits a misterious, thriller-esque vibe, since most of the room revolve around a horror-type subject. The english version is the primary version and was used to create the micro-logo, but other language variants also exist. With these versions the same micro-logo (that is derived from the english version) is used as an abstract symbol."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-38-01.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-38-02.jpeg"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-38-03.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "The Escape Room Budapest website",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The website also has a consistent atmosphere that is used overall. One of the challenges for designing for an escape room is that no photographs of the actual room can be displayed, because the main appeal of the service is the wow-effect that the visitors experience when entering (and we also want to eliminate the chance of someone solving a few visible puzzles before entering the room)."
+      },
+      {
+        "type": "paragraph",
+        "text": "Competitors usually solve the problem with including related artwork to each room. This results in visually inconsistent websites, since the room can vary a great deal (like Egyptian theme versus murder scene theme) and the images don’t offer any additinal information, nor do they help the company convert users to customers. – We wanted our users to choose us instead of our competitors and not expose them to another dilemma before booking, that mostly doesn’t have any value."
+      },
+      {
+        "type": "paragraph",
+        "text": "Our solution was to keep the visual style of the webpage, display minimalist icons for every room and rate them by difficulty and basic parameters like time length and maximum number of headcount. The role of selling the rooms felt back to the overal identity that kept the basics of the escape room idea – the mistery."
+      },
+      {
+        "type": "image",
+        "alt": "The Escape Room Budapest landing page with the slider of available rooms",
+        "caption": "The Escape Room Budapest landing page with the slider of available rooms",
+        "file": "wix-post-38-04.png"
+      }
+    ]
+  },
+  "miratia-app": {
+    "sourceTitle": "Miratia app",
+    "sourceSlug": "miratia-app",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Miratia is a geolocation based real life RPG.",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Filled with beautiful games in real cities designed by the Miratia team and also user generated missions, created via the Miratia Game Maker app."
+      },
+      {
+        "type": "paragraph",
+        "text": "You can collect items and re-use them in other games or just cash them in for in-game currency. With this currency, called Florin, you can acces other premium challenges or buy items that help you throughout your journey."
+      },
+      {
+        "type": "paragraph",
+        "text": "Tons of hidden items in the biggest map of all time, the entire world. As you collect them by solving mysteries and saving the planet Earth once-in-a-while, you encounter odd characters, hidden realms, explore real terrain and of course get badges and stats on the way."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-39-01.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-39-02.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-39-03.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-39-04.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-39-05.png"
+      }
+    ]
+  },
+  "wlrp-booking-admin": {
+    "sourceTitle": "WLRP booking admin user interface",
+    "sourceSlug": "wlrp-booking-admin-user-interface",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "The purpose of the admin system",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "WLRP has a wide range of services that mainly include touristic and entertainment programs mostly in Budapest, Hungary. The admin system was designed so that the event organizers, managers, partners and on-site collegues have a customized interface where they can log and manage the bookings, but also works as a CRM framework."
+      },
+      {
+        "type": "paragraph",
+        "text": "Online bookings come directly to the admin system, but it has the fuctionality for manualy recording and editing bookings too. The booked services have different states that indicates the payment status and other important data."
+      },
+      {
+        "type": "heading",
+        "text": "Flexible User Interface",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Most of the services share a few common properties, but none of them is identical, with the exact same needs. Therefore the user interface had to be created with moduls that can suit any parameter that comes up, when a new service is introduced."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-40-01.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "User experience, simplicity",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "The admin system is both used in WLRP’s office on desktop computers, but also on the field with tablet devices. The interface had to be compatible with touch mechanichs and needed to have a smooth, flat navigation that can be utilised quickly by the hostesses. Since people with many different roles use the system, they each can customise their view with filters. User roles define what data or functionality can be accessed by the users, so the system can be also easily deployed at a new partners venue almost instantly. A large priority when designing was also to create an interface that is intuitive – and shares the structure of the previously used excel table – so that new colleagues need little traning before kicking off."
+      }
+    ]
+  },
+  "progressive-web-app-for-wlrp": {
+    "sourceTitle": "Progressive web app for WLRP",
+    "sourceSlug": "progressive-web-app-for-wlrp",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Why are we using progressive web apps?",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "The main target audiences for all WLRP services (scroll down on this page to learn more about them) are tourists, so most users are one-time customers, who probably won’t return to the country. The services (like pub crawl or the beer bike) are bound to Budapest, so there is no opportunity to build loyal returning customers."
+      },
+      {
+        "type": "paragraph",
+        "text": "On the other hand every service that WLRP provides compliments a few other, so with the right channel it is a possible to sell multiple during a short period of time, while the users are within the area."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-41-01.png"
+      },
+      {
+        "type": "quote",
+        "text": "What is a progressive web app? Progressive Web Apps are web applications that are ordinary webpages technically, but are “reliable, fast and respond quickly to user interactions”- thus giving a higher user experience, similar to applications. They are still bleeding edge technology, but the benefits of a PWA can already be seen; they have high conversion rate and if it Google’s progressive web app criteria is met, it can be added to Android device’s home screen or a pc’s desktop.",
+        "html": "<strong>What is a progressive web app?</strong> Progressive Web Apps are web applications that are ordinary webpages technically, but are “reliable, fast and respond quickly to user interactions”- thus giving a higher user experience, similar to applications. They are still bleeding edge technology, but the benefits of a PWA can already be seen; they have high conversion rate and if it Google’s progressive web app criteria is met, it can be added to Android device’s home screen or a pc’s desktop."
+      }
+    ]
+  },
+  "orthograph-i-building-survey-app": {
+    "sourceTitle": "OrthoGraph I – building survey app",
+    "sourceSlug": "orthograph-i-building-survey-app",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph I is the next generation of OrthoGraph for tablets. It is a floor plan survey and creation CAD app running on iOS and Android mobile devices – since October 2016. By using OrthoGraph I, professionals get an on-site tool that can eliminate the use of pencil and paper, hand drawn sketches, and user errors, all this while saving time."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-01.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "“Change the way you create floor plans of existing homes or offices. Today it is more than just a trend that tablets and mobile phones are over and above being devices for free time activities, they became powerful working tools. By using OrthoGraph, the professional building survey app your tablet turns into a powerful tool which helps you working faster than ever."
+      },
+      {
+        "type": "paragraph",
+        "text": "Forget the clumsy hand drawn sketches and old, outdated, unreliable floorplans. Use your tablet and sketch the floor plan just the way you would do with pencil and paper, the software recognizes your movements and creates walls from them. Measure walls and diagonals as you go. OrthoGraph doesn’t let you forget any measurement as it highlights those corners that are not measured enough yet."
+      },
+      {
+        "type": "paragraph",
+        "text": "Connect a compatible laser distance meter to OrthoGraph in order to speed up your process – as all measured data shows up directly on your tablet screen, you won’t need another colleague to help with survey anymore, so you can move faster.”"
+      },
+      {
+        "type": "heading",
+        "text": "About the UI",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Meet an ergonomic, easy-­to-­use user interface, which makes a complete building survey available on iOS and Android tablets and on smartphones, too."
+      },
+      {
+        "type": "paragraph",
+        "text": "The app was designed with a fluid layout that works across all screen sizes starting from an iPhone 5S to an iPad Pro (and all everything in between, including Android devices)."
+      },
+      {
+        "type": "heading",
+        "text": "Icons",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "It has more than a 100 icons (designed from scratch exclusively for this app), all created in the same visual style and with the same principles; communicating functions, giving feedback and information in the simplest, most subtle way."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-02.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "Views",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "The app has more than 50 individual views including the “drawing area” where most of the functions take place. They all have a consistent visual style and flat workflow, so the user can always return to whats important for him – the drawing area. Most of these screens are different property editors, or settings with a few misc. scenes like the “laser distance meter connection” screens or the “export” and “cloud settings” screens."
+      },
+      {
+        "type": "quote",
+        "text": "“The user-interface, in general, is brilliantly conceived. The fan wheel type Toolbar is incredibly smart.” – architosh.com",
+        "html": "<em>“The user-interface, in general, is brilliantly conceived. The fan wheel type Toolbar is incredibly smart.” – </em><a href=\"http://architosh.com\"><em><u>architosh.com</u></em></a>"
+      },
+      {
+        "type": "heading",
+        "text": "Navigation",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "The core functions are available trough the “Right-corner wheel menu” where the user can navigate between different nested menus. It can be used with ease for jumping between functions, but if the user goes from one endpoint to the other, than the app will lead him trough the whole survey process starting from a basic 2D drawing and finishing with a furnished, scale-correct 3D model."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-03.jpeg"
+      },
+      {
+        "type": "heading",
+        "text": "About the 3D models",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph has 100 low poly 3D models for furnishing floor plans. They were all created in Blender with a mindset to keep them as resource-friendly as possible, while maintaining the decorative aspects of the models. They include the generic furnishing of a normal household, some very basic geometric shape for placeholders and I also managed to include some famous furnitures to give some variation to the selection – and with the help of them, the user is able to create more moody 3D renders."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-04.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-05.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-42-06.png"
+      }
+    ]
+  },
+  "orthograph-for-tablets": {
+    "sourceTitle": "Orthograph for tablets",
+    "sourceSlug": "orthograph-for-tablets",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "OrthoGraph’s user interface is created with a coherent style and symbol system that can be broken down to the very basic symbols that our wide range of users are already familiar with and a color scheme that has an easy-to-follow internal logic, which seamlessly helps anyone working with OrthoGraph products trough the optimal workflow."
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-43-01.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-43-02.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-43-03.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-43-04.png"
+      },
+      {
+        "type": "image",
+        "alt": "Project image",
+        "caption": "",
+        "file": "wix-post-43-05.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a legacy version of the new OrthoGraph I – also designed by me. If you want to learn more about the application and my part in it, please follow this link.",
+        "html": "<a href=\"http://aczel.xyz/graphicdesign/uiux/orthograph-building-survey-software/\"><strong>This is a legacy version of the new OrthoGraph I – also designed by me. If you want to learn more about the application and my part in it, please follow this link.</strong></a>"
+      }
+    ]
+  },
+  "goto-mobile-apps": {
+    "sourceTitle": "GoTo - Mobile Meeting Experience",
+    "sourceSlug": "goto-mobile-apps",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Working at LogMeIn in 2021, the company went through large scale changes. It went private, the name was changed to GoTo and our products were merged into one centralised app, the GoTo app. It was a strategic change that effected everything and everyone in the company and how we work."
+      },
+      {
+        "type": "paragraph",
+        "text": "Leveraging on the wide portfolio of products we had, our products were working closer together and we were transforming to a company that is based on product-lead growth."
+      },
+      {
+        "type": "paragraph",
+        "text": "This also meant that instead of isolated teams, we formed large design and cross-functional teams that spanned across continents and many time zones."
+      },
+      {
+        "type": "paragraph",
+        "text": "We were using Miro with the international team to stay in touch and to be able to have over-the-clock work done without interruption. Our previous products like GoToMeeting, GoToWebinar, GoToConnect (also known as Jive), GoToTraining and GoToMeeting Messenger were merged into one centralised and modularised GoTo App on every platform."
+      },
+      {
+        "type": "image",
+        "alt": "The GoTo App in the App Store",
+        "caption": "The GoTo App in the App Store",
+        "file": "wix-post-44-01.png"
+      },
+      {
+        "type": "heading",
+        "text": "The meetings module",
+        "level": 2
+      },
+      {
+        "type": "paragraph",
+        "text": "This new setup meant that one of the pillars of the GoTo product is the meeting experience which aimed to replace GoToMeeting, GoToWebinar and GoToTraining and was simply called “Meetings”."
+      },
+      {
+        "type": "paragraph",
+        "text": "The new app was available both as desktop apps, browser apps and mobile apps both for mobile and tablet devices. Tablet was usually an aftertought beforehand, but it was the main focus this time."
+      },
+      {
+        "type": "heading",
+        "text": "My role",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "As an ex-GoToMeeting designer, my role transformed into a Meeting Experience designer role within the context of GoTo. I was working similar as before, but on a much larger scale."
+      },
+      {
+        "type": "paragraph",
+        "text": "Design system, accessibility had even more emphasis than before and our pace was faster as well thanks to the technologies we were using for these new generation of products. It was my job to make sure we are aligned with the other modules and our design system and to outline a vision and tactical line of work from the UX perspective regarding the meeting experience."
+      },
+      {
+        "type": "image",
+        "alt": "The new GoTo App with the \"Meeting Experience\" in the middle",
+        "caption": "The new GoTo App with the \"Meeting Experience\" in the middle",
+        "file": "wix-post-44-02.png"
+      }
+    ]
+  },
+  "chameleon-design-system": {
+    "sourceTitle": "Chameleon Design System",
+    "sourceSlug": "chameleon-design-system",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Chameleon is the design system at GoTo. Even though Chameleon is not a product in the strict meaning of the word - it is a design system - we do treat it as a product. It is a collection of foundational (like colors, typography and other tokens) and complex components (like navigation bars and full views) elements that live in centralised and documented design files and also developed and available in code repositories."
+      },
+      {
+        "type": "paragraph",
+        "text": "I was working on the design system from the very start with another colleague. At the beginning it was just a library file of colors, typographic styles and a bunch of icons. Over the years it has evolved into a massive library that is used by pretty much every relevant product in all business units at GoTo. The Chameleon team now consists of 3 designers and 3 developers under a product owner."
+      },
+      {
+        "type": "heading",
+        "text": "My main responsibilities are the following:",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "- mobile components (both iOS and Android has their own library)"
+      },
+      {
+        "type": "paragraph",
+        "text": "- illustrations"
+      },
+      {
+        "type": "paragraph",
+        "text": "- iconography"
+      },
+      {
+        "type": "paragraph",
+        "text": "- documentation resources (I created a blueprint template and a contribution guide that is used for all components)"
+      },
+      {
+        "type": "paragraph",
+        "text": "I also work on our colors, typography and web components when needed."
+      },
+      {
+        "type": "heading",
+        "text": "Design",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Our design resources live in Figma utilising the library feature - the product designers are using instances of the components we design and whenever there is a small update (like a fix or an icon change) or a major update (like a complete rebrand) their designs are automatically updated with the new version of whatever component they were using."
+      },
+      {
+        "type": "heading",
+        "text": "Tokens and theming",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "Since we have separate products with their own \"product colors\", we needed the design system to adopt to each endpoint. We are using \"tokens\" or variables to define certain properties - with the use of Figma's library swap we can use these to easily serve all needs. The same functionality helps us also to design for light and dark mode without duplicated effort."
+      },
+      {
+        "type": "quote",
+        "text": "Example: If we have a button that uses the product brand color, it is not hardcoded, but it is using a token ($brand-color-01). So if a designer for product \"blue\" is using the \"product blue\" library that we provided, this color will appear as their brand color (blue), but the same button will appear as red for a designers that is working with \"product red\". They can also switch their library to the dark mode library and all the colors will be switched to that - no need to provide two separate designs for development, since the developers are using the same tokens in their code."
+      },
+      {
+        "type": "image",
+        "alt": "Part of the documentation for used tokens for the \"Round button\" component",
+        "caption": "Part of the documentation for used tokens for the \"Round button\" component",
+        "file": "wix-post-45-01.png"
+      },
+      {
+        "type": "heading",
+        "text": "Iconography and variants",
+        "level": 4
+      },
+      {
+        "type": "paragraph",
+        "text": "We use variants for lots of purposes in our files, but the simplest example is the Iconography file. Every icon has a filled (active) and an outlined (inactive) version - these are paired as variants and one can be easily switched to another with a toggle."
+      },
+      {
+        "type": "paragraph",
+        "text": "Since we have more than a 1000 icons at this point we also added some alternative keyword in the icon's description so our consumers can easily find them. I have also changed the names to more generic ones with on of our updated (ex.: formerly there was a \"commuter mode\" icon that was used in our meeting experience, but it was changed to simply \"car\" - if a designers from a different product is searching for it, this is the most likely keyword they would put in)."
+      },
+      {
+        "type": "image",
+        "alt": "This is how our Iconography file looks like",
+        "caption": "This is how our Iconography file looks like",
+        "file": "wix-post-45-02.png"
+      },
+      {
+        "type": "heading",
+        "text": "Documentation",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Every component is thoroughly documented before implementation... all the edge cases need to be explored and used tokens, dependencies and other details need to be properly defined. It is easy to miss one of these details, so I created a \"Blueprint\" template and a guide that helps our contributors to not miss anything."
+      },
+      {
+        "type": "paragraph",
+        "text": "An additional benefit of these blueprints is that it includes a section and guidance for accessibility and editorial requirements, which is often missed by designers who are not involved in those areas."
+      },
+      {
+        "type": "image",
+        "alt": "The \"Parts\" section of our \"Snackbar\" mobile component",
+        "caption": "The \"Parts\" section of our \"Snackbar\" mobile component",
+        "file": "wix-post-45-03.png"
+      },
+      {
+        "type": "heading",
+        "text": "Development",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "Whenever we are updating our designs in the foundation files (colors, typography, iconography and other styles) a script is run and our repository is automatically updated without any coding needed. In the upcoming build of any product we have, the resources are fetched from the updated library and the live product is updated with the improvements."
+      },
+      {
+        "type": "paragraph",
+        "text": "With more complex instances we work as any other development team - we hand over the designs to our own developer team and they implement the changes or add the new component based on the documentation. Whatever we create is added in our repository and is available for anyone in the company to use."
+      }
+    ]
+  },
+  "gotomeeting-messenger-mobile-apps": {
+    "sourceTitle": "GotoMeeting Messenger mobile apps",
+    "sourceSlug": "gotomeeting-messenger-mobile-apps",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "The Messenger app is a lightweight chat app that supplements the main meeting app in the GoToMeeting portfolio. It allows individuals and groups to have conversations outside the meeting and start meetings directly from the chat easily."
+      },
+      {
+        "type": "paragraph",
+        "text": "Compared to other business chat apps, this product provided a simpler, smoother experience – not challenging competitors like Slack or Microsoft Teams, but providing value and extra functionality to the meeting experience."
+      },
+      {
+        "type": "paragraph",
+        "text": "The Messenger apps are available in browser (Google Chrome) and on mobile devices (iOS and Android). I was the first designer dedicated to this product from the very beginning, to the “end”."
+      },
+      {
+        "type": "image",
+        "alt": "Some early designs of the GoToMeeting Messenger",
+        "caption": "Some early designs of the GoToMeeting Messenger",
+        "file": "wix-post-46-01.png"
+      },
+      {
+        "type": "heading",
+        "text": "Strategy",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "This product was not sold separately, its main purpose was to add value to our main product, GoToMeeting and to explore a direction where our products don’t start and end with only online meetings.",
+        "html": "This product was not sold separately, its main purpose was to add value to our main product, <a href=\"https://aczel.xyz/graphicdesign/uiux/uiuxlogmein/gotomeeting-for-mobile/\">GoToMeeting</a> and to explore a direction where our products don’t start and end with only online meetings."
+      },
+      {
+        "type": "heading",
+        "text": "Technology",
+        "level": 3
+      },
+      {
+        "type": "paragraph",
+        "text": "The app was developed in a native environment, which enabled us to customise the patterns and the look and feel of the app for each platform it runs on. The native technology allowed us to take advantage of the already existing environment and develop it quickly."
+      }
+    ]
+  },
+  "gotomeeting-mobile-apps": {
+    "sourceTitle": "GotoMeeting mobile apps",
+    "sourceSlug": "gotomeeting-mobile-apps",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "GoToMeeting is a world wide leading video conferencing solution by LogMeIn Inc.. As part of the GoTo portfolio, GoToMeeting provides top quality video calls from enterprise to small businesses."
+      },
+      {
+        "type": "image",
+        "alt": "GotoMeeting in the App Store",
+        "caption": "GotoMeeting in the App Store",
+        "file": "wix-post-47-01.png"
+      },
+      {
+        "type": "paragraph",
+        "text": "The product family includes various endpoints tailored to the platform – desktop apps for Windows and Mac, mobile apps for iOS and Android, a web app for Google Chrome a few several mutations of these for other devices."
+      },
+      {
+        "type": "image",
+        "alt": "GoToMeeting was even made available for Facebook Portal from the very beginning. Working with Facebook, we made a mutation of the Android app tailored to their devices.",
+        "caption": "GoToMeeting was even made available for Facebook Portal from the very beginning. Working with Facebook, we made a mutation of the Android app tailored to their devices.",
+        "file": "wix-post-47-02.png"
+      }
+    ]
+  }
+}

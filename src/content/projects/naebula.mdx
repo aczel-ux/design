@@ -1,0 +1,98 @@
+---
+title: naebula.app
+summary: 'A discovery and collaboration platform that helps models, photographers, studios and other visual creatives find each other, present their work and plan productions.'
+category: ux-ui
+client: Own project
+role: Founder
+year: 2026
+featured: true
+order: 0
+cover: ../../assets/projects/naebula-cover.jpg
+coverAlt: Naebula creative discovery interface shown on desktop and mobile devices
+externalUrl: https://naebula.app
+seoTitle: naebula.app creative collaboration platform — UX/UI case study
+seoDescription: Product design and development of Naebula, a platform for models, photographers, studios and other visual creatives to discover collaborators and plan productions.
+---
+
+import ProjectImage from '../../components/ProjectImage.astro';
+import discoveryDesktop from '../../assets/projects/naebula-discovery-desktop.png';
+import discoveryMobile from '../../assets/projects/naebula-discovery-mobile.png';
+import collaborations from '../../assets/projects/naebula-collaborations.png';
+import studioProfile from '../../assets/projects/naebula-studio-profile.png';
+import infrastructure from '../../assets/projects/naebula-infrastructure.png';
+import profileGrowth from '../../assets/projects/naebula-profile-growth.png';
+
+Naebula is a discovery and collaboration platform for people working on photoshoots and visual productions. It brings models, photographers, videographers, make-up artists, hairdressers, stylists, producers, retouchers and studios into one shared product.
+
+The project grew from a familiar problem in the creative industry: finding the right person for a shoot is often scattered across social media, private groups and word of mouth. Portfolios, availability, location and the terms of a collaboration rarely live in the same place.
+
+<ProjectImage
+  src={discoveryDesktop}
+  alt="Naebula desktop interface for finding creatives by location, role and collaboration type"
+  caption="Location-aware creative discovery with filters for roles, availability and profile status."
+/>
+
+## From portfolio to collaboration
+
+I designed the product around how creative teams actually form. Public profiles put work and professional context first, while role and location directories make people discoverable beyond their existing network. Members can browse portfolios, save favourites and move from discovery into a direct conversation without leaving the platform.
+
+Open casting calls and project listings support both paid assignments and TFP collaborations. Clear roles, engagement types and locations help people understand whether an opportunity is relevant before they apply.
+
+<ProjectImage
+  src={collaborations}
+  alt="Naebula open collaborations and creative calls displayed as visual project cards"
+  caption="Open projects bring roles, engagement terms and applications into one structured workflow."
+/>
+
+## Designing for a diverse creative community
+
+Naebula serves very different professions, each with their own needs and vocabulary. The information architecture had to remain consistent while allowing profiles and listings to carry role-specific details. Studios, for example, need to communicate amenities, pricing and practical production information, while a model or photographer needs a portfolio-led personal profile.
+
+<ProjectImage
+  src={studioProfile}
+  alt="Naebula studio profile with production details and an image gallery"
+  caption="Studio profiles combine practical production information, booking access and visual portfolios."
+/>
+
+The interface uses a dark, image-forward visual system that lets members’ work stay at the centre. Reusable patterns connect profiles, search results, casting calls, projects, favourites and messaging, helping a feature-rich platform feel coherent rather than fragmented.
+
+## A mobile product, not a reduced desktop site
+
+Creative work rarely happens behind a desk, so the responsive experience was treated as a core product surface. Profiles, portfolios, messages, project updates and studio planning remain accessible on smaller screens, and the progressive web app can be added to a phone’s home screen for quick access on set or while scouting.
+
+<ProjectImage
+  src={discoveryMobile}
+  alt="Naebula mobile interface showing a model profile card"
+  caption="The discovery experience is designed as a focused mobile product rather than a reduced desktop layout."
+/>
+
+## End-to-end ownership
+
+My role spans product strategy, UX and UI design, brand application, front-end implementation and the ongoing refinement of the live platform. Building and using Naebula alongside its community creates a tight feedback loop: real profiles, real casting calls and real production workflows continuously inform what gets simplified or built next.
+
+### Built with AI
+
+Naebula is built through an AI-assisted product development workflow. I use Codex and ChatGPT as active collaborators across research, product thinking, interface exploration, implementation, testing, debugging, content and release preparation. This makes it possible to move quickly from an observed community need to a designed, working and verified feature while I retain responsibility for product decisions, creative direction, code quality and the final experience.
+
+### Technology and tools
+
+- **Application:** Laravel, PHP, React, TypeScript and Inertia.js
+- **Interface:** Tailwind CSS, reusable React components, Lucide icons and responsive PWA patterns
+- **Build and quality:** Vite, Composer, npm, automated tests, static analysis and code formatting
+- **Data and infrastructure:** MySQL, S3-compatible object storage and Railway hosting
+- **Product operations:** PostHog analytics, transactional email, background jobs and notification workflows
+- **Design and AI workflow:** Figma, Adobe creative tools, Codex and ChatGPT
+
+<ProjectImage
+  src={infrastructure}
+  alt="Railway infrastructure diagram for Naebula showing the application, realtime service, queue worker, MySQL database and object storage"
+  caption="The production architecture separates the web application, realtime communication and background jobs around shared data and media services."
+/>
+
+<ProjectImage
+  src={profileGrowth}
+  alt="Product analytics chart showing cumulative Naebula users by creative profile type"
+  caption="Privacy-conscious product analytics help track organic growth across the platform’s different creative roles while excluding test accounts."
+/>
+
+Naebula is an active product and continues to evolve as its creative network grows. [Explore the live platform at naebula.app](https://naebula.app).

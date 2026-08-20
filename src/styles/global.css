@@ -8,12 +8,12 @@
   default: true;
   color-scheme: light;
   --color-base-100: #ffffff;
-  --color-base-200: #f2f7f8;
-  --color-base-300: #dfe9eb;
-  --color-base-content: #1f2427;
-  --color-primary: #287f82;
+  --color-base-200: #f2f7fa;
+  --color-base-300: #e1e8ec;
+  --color-base-content: #2f2f2f;
+  --color-primary: #008e91;
   --color-primary-content: #ffffff;
-  --color-secondary: #d9ecee;
+  --color-secondary: #edf5f8;
   --color-secondary-content: #163f41;
   --color-accent: #111617;
   --color-accent-content: #ffffff;
@@ -38,19 +38,45 @@
 }
 
 @theme {
-  --font-sans: 'Aczel Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --color-ink: #1f2427;
+  --font-sans: 'Avenir Web', 'Avenir Next', Avenir, sans-serif;
+  --color-ink: #2f2f2f;
   --color-paper: #ffffff;
-  --color-mist: #f2f7f8;
-  --color-line: #d8e2e4;
-  --color-aqua: #287f82;
-  --color-aqua-dark: #1d5d60;
+  --color-mist: #f2f7fa;
+  --color-line: #dce4e8;
+  --color-aqua: #008e91;
+  --color-aqua-dark: #006f72;
   --shadow-soft: 0 20px 60px rgb(21 45 48 / 0.08);
 }
 
 @font-face {
-  font-family: 'Aczel Sans';
-  src: local('Avenir Next'), local('Avenir'), local('Helvetica Neue');
+  font-family: 'Avenir Web';
+  src: url('../assets/fonts/avenir-light.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Web';
+  src: url('../assets/fonts/avenir-book.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Web';
+  src: url('../assets/fonts/avenir-medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Web';
+  src: url('../assets/fonts/avenir-heavy.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 800 900;
   font-display: swap;
 }
 
@@ -92,41 +118,118 @@ textarea {
   transition-timing-function: ease-out;
 }
 
+.button-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1;
+  transform: translateY(0.125rem);
+}
+
+/* Give primary buttons a little energy while keeping the default state restrained. */
+.btn-neutral {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color 220ms ease-out,
+    border-color 220ms ease-out,
+    box-shadow 220ms ease-out,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-neutral::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(
+    115deg,
+    transparent 22%,
+    rgb(255 255 255 / 0.28) 48%,
+    transparent 72%
+  );
+  transform: translateX(-140%);
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-neutral > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-neutral .button-label svg {
+  transition: transform 220ms ease-out;
+}
+
+@media (hover: hover) {
+  .btn-neutral:hover {
+    border-color: var(--color-aqua);
+    background-color: var(--color-aqua);
+    box-shadow:
+      0 0 0 1px rgb(0 142 145 / 0.28),
+      0 10px 24px rgb(0 142 145 / 0.24),
+      0 0 34px rgb(0 142 145 / 0.18);
+    transform: translateY(-2px);
+  }
+
+  .btn-neutral:hover::before {
+    transform: translateX(140%);
+  }
+
+  .btn-neutral:hover .button-label svg {
+    transform: translate(0.15rem, -0.1rem);
+  }
+}
+
+.btn-neutral:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-neutral,
+  .btn-neutral::before,
+  .btn-neutral .button-label svg {
+    transition-duration: 0.01ms;
+  }
+}
+
 img {
   background: var(--color-mist);
 }
 
 .display {
-  font-size: clamp(3.25rem, 8vw, 7.75rem);
-  font-weight: 300;
-  letter-spacing: -0.055em;
-  line-height: 0.92;
+  font-size: clamp(2.75rem, 6vw, 4.625rem);
+  font-weight: 350;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
 }
 
 .headline {
-  font-size: clamp(2.25rem, 5vw, 4.75rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 350;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
 
 .eyebrow {
   color: var(--color-aqua-dark);
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-weight: 750;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .prose-aczel {
   color: #3e474b;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 .prose-aczel h2 {
   color: var(--color-ink);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(1.8rem, 3vw, 2.35rem);
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -142,13 +245,48 @@ img {
 
 .prose-aczel p,
 .prose-aczel ul,
+.prose-aczel ol,
 .prose-aczel blockquote {
   margin: 1.2rem 0;
 }
 
+.prose-aczel ul,
+.prose-aczel ol {
+  padding-left: 1.4rem;
+}
+
 .prose-aczel ul {
   list-style: disc;
-  padding-left: 1.4rem;
+}
+
+.prose-aczel ol {
+  list-style: decimal;
+}
+
+.prose-aczel li + li {
+  margin-top: 0.45rem;
+}
+
+.prose-aczel a {
+  color: var(--color-aqua-dark);
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.project-card-link {
+  box-shadow: 0 0 0 rgb(18 25 26 / 0%);
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+}
+
+.project-card-link:hover {
+  box-shadow: 0 1.1rem 2.4rem -1.2rem rgb(18 25 26 / 28%);
+  transform: translate3d(0, -0.35rem, 0);
 }
 
 .prose-aczel blockquote {

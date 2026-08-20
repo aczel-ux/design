@@ -73,6 +73,10 @@ download medi-lab-mutations.png 'https://static.wixstatic.com/media/94c0c9_056f4
 # Graphics page imagery.
 download graphics-editorial.jpg 'https://static.wixstatic.com/media/94c0c9_8b25a588b97f46528d1778eae5c59bd8~mv2.jpg'
 download graphics-asimov.png 'https://static.wixstatic.com/media/94c0c9_5d799f856afe42adaf8c00818397b21a~mv2.png'
+download graphics-asimov-2.png 'https://static.wixstatic.com/media/94c0c9_170325fb43824d5998487b555abd8f33~mv2.png'
+download graphics-asimov-3.png 'https://static.wixstatic.com/media/94c0c9_93616d228409416d91d5d69bf625a0fc~mv2.png'
+download graphics-vernon-sullivan-girls.jpeg 'https://static.wixstatic.com/media/94c0c9_c5d1e0971093444fb1184349d1b6be9b~mv2.jpeg'
+download graphics-vernon-sullivan-graves.jpeg 'https://static.wixstatic.com/media/94c0c9_68c5f15776de424981ddd3c1cb3b4cc4~mv2.jpeg'
 download graphics-hex.png 'https://static.wixstatic.com/media/94c0c9_0ace9bd4a7d943efa8f03517e42e62f0~mv2.png'
 download graphics-honey.jpeg 'https://static.wixstatic.com/media/94c0c9_b339424ed8dc40f89489d98d294f8261~mv2.jpeg'
 download graphics-swag.png 'https://static.wixstatic.com/media/94c0c9_8748fd5254c44e088aabb08ef7708c55~mv2.png'

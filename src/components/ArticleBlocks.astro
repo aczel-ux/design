@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type ArticleBlock = {
+  type: string;
+  text?: string;
+  html?: string;
+  level?: number;
+  ordered?: boolean;
+  items?: string[];
+  itemHtml?: string[];
+  file?: string;
+  alt?: string;
+  caption?: string;
+};
+
+type GalleryGroup = { type: 'gallery'; images: ArticleBlock[] };
+type ArticleGroup = ArticleBlock | GalleryGroup;
+
+interface Props {
+  blocks: ArticleBlock[];
+}
+
+const { blocks } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/wix-post-*', {
+  eager: true,
+});
+
+const groups: ArticleGroup[] = [];
+
+function isGallery(group: ArticleGroup): group is GalleryGroup {
+  return 'images' in group;
+}
+
+for (let index = 0; index < blocks.length; index += 1) {
+  const block = blocks[index];
+
+  if (block.type !== 'image') {
+    groups.push(block);
+    continue;
+  }
+
+  const gallery = [block];
+  while (blocks[index + 1]?.type === 'image') {
+    index += 1;
+    gallery.push(blocks[index]);
+  }
+
+  groups.push(gallery.length === 1 ? gallery[0] : { type: 'gallery', images: gallery });
+}
+---
+
+<div class="prose-aczel">
+  {
+    groups.map((group) => {
+      if (isGallery(group)) {
+        return (
+          <div
+            class:list={[
+              'my-10 grid items-start gap-5 sm:gap-6',
+              group.images.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3',
+            ]}
+          >
+            {group.images.map((image) => {
+              if (!image.file) return null;
+              const source = images[`../assets/projects/${image.file}`]?.default;
+              if (!source) return null;
+              return (
+                <figure class="min-w-0">
+                  <Image
+                    class="h-auto w-full cursor-zoom-in rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+                    src={source}
+                    alt={image.alt ?? 'Project image'}
+                    widths={[480, 640, 960]}
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+                    data-lightbox-image
+                    data-lightbox-caption={image.caption}
+                    role="button"
+                    tabindex="0"
+                    aria-haspopup="dialog"
+                  />
+                  {image.caption && (
+                    <figcaption class="mt-3 text-center text-sm leading-6 text-ink/60">
+                      {image.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            })}
+          </div>
+        );
+      }
+
+      const block = group as ArticleBlock;
+      const content = block.html ? <Fragment set:html={block.html} /> : block.text;
+      if (block.type === 'heading') {
+        if (block.level === 2) return <h2>{content}</h2>;
+        if (block.level === 3) return <h3>{content}</h3>;
+        return <h4 class="mt-8 text-lg font-semibold text-ink">{content}</h4>;
+      }
+      if (block.type === 'paragraph') return <p>{content}</p>;
+      if (block.type === 'quote') return <blockquote>{content}</blockquote>;
+      if (block.type === 'list') {
+        const List = block.ordered ? 'ol' : 'ul';
+        return (
+          <List class:list={[block.ordered && 'list-decimal']}>
+            {(block.items ?? []).map((item, index) => (
+              <li>
+                {block.itemHtml?.[index] ? <Fragment set:html={block.itemHtml[index]} /> : item}
+              </li>
+            ))}
+          </List>
+        );
+      }
+      if (block.type !== 'image' || !block.file) return null;
+      const source = images[`../assets/projects/${block.file}`]?.default;
+      if (!source) return null;
+      return (
+        <figure class="my-10">
+          <Image
+            class="w-full cursor-zoom-in rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+            src={source}
+            alt={block.alt ?? 'Project image'}
+            widths={[640, 960, 1400, 1800]}
+            sizes="(min-width: 1280px) 1056px, 100vw"
+            data-lightbox-image
+            data-lightbox-caption={block.caption}
+            role="button"
+            tabindex="0"
+            aria-haspopup="dialog"
+          />
+          {block.caption && (
+            <figcaption class="mt-3 text-center text-sm leading-6 text-ink/60">
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    })
+  }
+</div>

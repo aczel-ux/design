@@ -1,49 +1,92 @@
 ---
-import { Menu, X } from '@lucide/astro';
+import { ChevronDown, Menu, X } from '@lucide/astro';
 import Container from './ui/Container.astro';
-import { withBase } from '../lib/site';
+import { categories, withBase } from '../lib/site';
 
 const pathname = Astro.url.pathname;
+const categoryLinks = Object.values(categories);
+const workPaths = [...categoryLinks.map((category) => category.href), '/projects/'];
+const workIsActive = workPaths.some((path) => pathname.includes(path));
 const links = [
-  {
-    label: 'Work',
-    href: '/ux-ui/',
-    match: ['/ux-ui/', '/web-design/', '/brand-logo/', '/graphics/', '/projects/'],
-  },
-  { label: 'Consultation', href: '/consultation/', match: ['/consultation/'] },
-  { label: 'About', href: '/about/', match: ['/about/'] },
+  { label: 'Consultation', href: '/consultation/' },
+  { label: 'About', href: '/about/' },
 ];
-const isActive = (match: string[]) => match.some((item) => pathname.includes(item));
+const isActive = (href: string) => pathname.includes(href);
 ---
 
-<header class="sticky top-0 z-50 border-b border-line/80 bg-white/90 backdrop-blur-xl">
+<header class="sticky top-0 z-50 border-b border-line/80 bg-white/95 backdrop-blur-xl">
   <Container class="flex h-[4.75rem] items-center justify-between gap-6">
     <a
-      class="text-lg font-semibold tracking-[-0.04em]"
+      class="text-lg font-extrabold tracking-[-0.035em]"
       href={withBase('/')}
       aria-label="aczel.design home"
     >
       aczel<span class="text-aqua">.</span>design
     </a>
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+
+    <nav class="hidden h-10 items-center gap-1 md:flex" aria-label="Primary navigation">
+      <div class="group relative h-10">
+        <button
+          type="button"
+          class:list={[
+            'flex h-10 items-center gap-1 rounded-full px-4 text-sm font-semibold leading-none hover:bg-mist focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua',
+            workIsActive && 'bg-mist text-aqua-dark',
+          ]}
+          aria-haspopup="true"
+        >
+          <span class="button-label gap-1">
+            Work
+            <ChevronDown
+              size={15}
+              aria-hidden="true"
+              class="transition-transform group-hover:rotate-180 group-has-[:focus-visible]:rotate-180"
+            />
+          </span>
+        </button>
+        <div
+          class="invisible absolute left-0 top-full w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100"
+        >
+          <div class="rounded-2xl border border-line bg-white p-2 shadow-xl">
+            {
+              categoryLinks.map((category) => (
+                <a
+                  class:list={[
+                    'block rounded-xl px-4 py-3 text-sm font-semibold hover:bg-mist focus-visible:outline-2 focus-visible:outline-aqua',
+                    pathname.includes(category.href) && 'bg-mist text-aqua-dark',
+                  ]}
+                  href={withBase(category.href)}
+                  aria-current={pathname.includes(category.href) ? 'page' : undefined}
+                >
+                  <span class="button-label">{category.label}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
       {
         links.map((link) => (
           <a
             class:list={[
-              'rounded-full px-4 py-2 text-sm font-medium hover:bg-mist',
-              isActive(link.match) && 'bg-mist text-aqua-dark',
+              'flex h-10 items-center rounded-full px-4 text-sm font-semibold leading-none hover:bg-mist',
+              isActive(link.href) && 'bg-mist text-aqua-dark',
             ]}
             href={withBase(link.href)}
-            aria-current={isActive(link.match) ? 'page' : undefined}
+            aria-current={isActive(link.href) ? 'page' : undefined}
           >
-            {link.label}
+            <span class="button-label">{link.label}</span>
           </a>
         ))
       }
-      <a class="btn btn-neutral btn-sm ml-2 rounded-full" href={withBase('/#contact')}
-        >Start a project</a
+      <a
+        class="btn btn-neutral ml-2 h-10 min-h-10 rounded-full px-4 text-sm"
+        href={withBase('/#contact')}
       >
+        <span class="button-label">Contact me</span>
+      </a>
     </nav>
+
     <button
       id="menu-toggle"
       class="btn btn-circle btn-ghost md:hidden"
@@ -51,23 +94,50 @@ const isActive = (match: string[]) => match.some((item) => pathname.includes(ite
       aria-controls="mobile-menu"
       aria-expanded="false"
       aria-label="Open navigation"
-      ><Menu class="menu-open" size={23} /><X class="menu-close hidden" size={23} /></button
     >
+      <Menu class="menu-open" size={23} />
+      <X class="menu-close hidden" size={23} />
+    </button>
   </Container>
+
   <nav
     id="mobile-menu"
     class="hidden border-t border-line bg-white md:hidden"
     aria-label="Mobile navigation"
   >
     <Container class="flex flex-col py-4">
+      <a class="border-b border-line py-4 text-lg font-semibold" href={withBase('/')}>
+        <span class="button-label">Home</span>
+      </a>
+      <div class="border-b border-line py-4">
+        <p class="text-lg font-semibold"><span class="button-label">Work</span></p>
+        <div class="mt-2 flex flex-col border-l border-line pl-4">
+          {
+            categoryLinks.map((category) => (
+              <a
+                class:list={[
+                  'rounded-lg px-3 py-3 font-medium hover:bg-mist',
+                  pathname.includes(category.href) && 'bg-mist text-aqua-dark',
+                ]}
+                href={withBase(category.href)}
+                aria-current={pathname.includes(category.href) ? 'page' : undefined}
+              >
+                <span class="button-label">{category.label}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
       {
         links.map((link) => (
-          <a class="border-b border-line py-4 text-lg font-medium" href={withBase(link.href)}>
-            {link.label}
+          <a class="border-b border-line py-4 text-lg font-semibold" href={withBase(link.href)}>
+            <span class="button-label">{link.label}</span>
           </a>
         ))
       }
-      <a class="btn btn-neutral mt-5 rounded-full" href={withBase('/#contact')}>Start a project</a>
+      <a class="btn btn-neutral mt-5 rounded-full" href={withBase('/#contact')}>
+        <span class="button-label">Contact me</span>
+      </a>
     </Container>
   </nav>
 </header>
@@ -77,6 +147,7 @@ const isActive = (match: string[]) => match.some((item) => pathname.includes(ite
   const menu = document.querySelector<HTMLElement>('#mobile-menu');
   const openIcon = toggle?.querySelector('.menu-open');
   const closeIcon = toggle?.querySelector('.menu-close');
+
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!isOpen));

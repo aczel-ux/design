@@ -7,8 +7,42 @@ const projects = (
 ---
 
 <CategoryLayout
-  title="Product experiences that earn their complexity."
-  eyebrow="UX / UI"
-  description="Research, testing and close collaboration turn complex product challenges into clear, polished digital experiences. My work spans product strategy, mobile and web interfaces, and the systems that keep them coherent."
+  title="User Experience and User Interface Design Projects"
+  titleHighlights={['User Experience', 'User Interface']}
+  description="I provide professional UX and UI design services focused on creating user-friendly, visually polished digital products. Through research, testing and close collaboration with product and development teams, I design interfaces that balance aesthetics and usability. By involving real users throughout the process, I ensure each product delivers an intuitive experience that supports both business goals and customer needs."
   projects={projects}
+  groups={[
+    {
+      title: 'Octomind',
+      subtitle: 'AI-powered end-to-end testing software startup',
+      description:
+        'As UX Lead and part of the product trio, I played a key role in shaping Octomind’s product vision and user experience. I worked closely with product and engineering to simplify a highly technical process into an elegant, developer-friendly experience.',
+      projectIds: ['octo-design-system'],
+    },
+    {
+      title: 'UX / UI work at GoTo',
+      subtitle: 'Multinational communication software company',
+      description:
+        'GoTo, formerly LogMeIn, builds communication and collaboration tools used by millions of people. Accessibility, equality and empowerment are central to its product culture alongside productivity and efficiency.',
+      projectIds: [
+        'goto-mobile-apps',
+        'chameleon-design-system',
+        'gotomeeting-messenger-mobile-apps',
+        'gotomeeting-mobile-apps',
+      ],
+    },
+    {
+      title: 'UX / UI work at OrthoGraph',
+      subtitle: 'Professional building survey applications',
+      description:
+        'As OrthoGraph’s sole designer, I proposed and delivered a full redesign that moved the app from a generic technical tool toward a polished professional product. I also built a design system and helped expand the portfolio to tablets.',
+      projectIds: ['orthograph-i-building-survey-app', 'orthograph-for-tablets'],
+    },
+    {
+      title: 'Freelance UX / UI work',
+      description:
+        'I have worked as a contractor on UX and UI projects for organizations ranging from small startups to large companies.',
+      projectIds: ['naebula', 'miratia-app', 'wlrp-booking-admin', 'progressive-web-app-for-wlrp'],
+    },
+  ]}
 />

@@ -1,98 +1,171 @@
 ---
-import { getCollection } from 'astro:content';
-import { ArrowDown, Layers, PenTool, Shapes } from '@lucide/astro';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import Button from '../components/ui/Button.astro';
-import ProjectGrid from '../components/ProjectGrid.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { withBase } from '../lib/site';
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const featured = projects.filter((project) => project.data.featured).slice(0, 6);
-const services = [
+import uxThumbnail from '../assets/projects/goto-meeting-experience.png';
+import webThumbnail from '../assets/projects/services-web-design.jpg';
+import systemsThumbnail from '../assets/projects/chameleon-icons.png';
+import brandThumbnail from '../assets/projects/schonherz-structure.png';
+import graphicsThumbnail from '../assets/projects/graphics-hex.png';
+import consultationThumbnail from '../assets/projects/chameleon-tokens.png';
+
+const serviceGroups = [
   {
-    icon: Layers,
-    title: 'Product design',
-    text: 'Research-driven UX/UI for mobile and web products, from early product-market fit to mature platforms.',
-    href: '/ux-ui/',
+    title: 'Practical Design',
+    subtitle: 'Hands-on design for digital products, systems and brands.',
+    services: [
+      {
+        image: uxThumbnail,
+        alt: 'GoTo mobile product interface design',
+        title: 'UX / UI Design',
+        price: 'from 25.000 HUF / hour',
+        text: 'I design intuitive, visually engaging mobile and desktop applications. From wireframes to polished interfaces, the work stays functional, scalable and grounded in user needs.',
+        href: '/ux-ui/',
+        linkLabel: 'Go to UX / UI case studies',
+      },
+      {
+        image: systemsThumbnail,
+        alt: 'A component icon library from a design system',
+        title: 'Design System Architecture',
+        price: 'ask for an offer!',
+        text: 'I build scalable design systems that unify products and streamline development. From component libraries to clear guidelines, I create consistent, efficient frameworks that keep design and engineering aligned across platforms.',
+        href: '/consultation/',
+        linkLabel: 'Go to design system case studies',
+      },
+      {
+        image: brandThumbnail,
+        alt: 'Logo construction and brand design study',
+        title: 'Logo & Brand Design',
+        price: 'from 99.000 HUF',
+        text: 'I develop complete brand identities—from distinctive logos to cohesive visual systems. My approach ensures consistency across all touchpoints, creating a clear, memorable presence that reflects your brand’s values and connects with your audience.',
+        href: '/brand-logo/',
+        linkLabel: 'Go to logo designs',
+      },
+    ],
   },
   {
-    icon: Shapes,
-    title: 'Design systems',
-    text: 'Scalable foundations, components and contribution models that keep design and development aligned.',
-    href: '/consultation/',
-  },
-  {
-    icon: PenTool,
-    title: 'Brand & visual design',
-    text: 'Logos, identity systems, websites, packaging and editorial work with a clear point of view.',
-    href: '/brand-logo/',
+    title: 'Design Theory',
+    subtitle: 'Strategic guidance to make design decisions clearer and more effective.',
+    services: [
+      {
+        image: consultationThumbnail,
+        alt: 'Design-system foundations used in consultation and training',
+        title: 'Consultation',
+        price: 'from 25.000 HUF / hour',
+        text: 'I provide tailored consultation to help teams improve their design processes, product usability and visual communication.',
+        href: '/consultation/',
+        linkLabel: 'Learn more about consultation',
+      },
+      {
+        image: webThumbnail,
+        alt: 'Digital product shown on a laptop during a design audit',
+        title: 'Audit',
+        price: 'from 25.000 HUF / hour',
+        text: 'I review digital products and design systems to uncover usability issues, inconsistencies and practical opportunities to improve.',
+        href: '/consultation/',
+        linkLabel: 'Ask for an audit',
+      },
+      {
+        image: graphicsThumbnail,
+        alt: 'Hexagonal graphic design and packaging pattern',
+        title: 'Art Direction',
+        price: 'ask for an offer!',
+        text: 'I guide visual direction across products, campaigns and brands—creating a cohesive point of view from the first concept to final delivery.',
+        href: '/graphics/',
+        linkLabel: 'Explore graphic design work',
+      },
+    ],
   },
 ];
 ---
 
 <BaseLayout>
-  <section class="relative overflow-hidden py-20 sm:py-28 lg:py-36">
-    <div
-      class="pointer-events-none absolute -right-40 top-12 h-[30rem] w-[30rem] rounded-full bg-secondary/55 blur-3xl"
-    >
-    </div>
-    <Container class="relative">
-      <p class="eyebrow">Senior UX/UI & graphic designer · Budapest</p>
-      <h1 class="display mt-6 max-w-6xl">
-        Clear products.<br /><span class="text-aqua">Lovable</span> experiences.
+  <section class="py-20 sm:py-28 lg:py-32">
+    <Container>
+      <h1 class="display max-w-5xl">
+        <span style="color: var(--color-aqua)">UX / UI</span>&nbsp;and&nbsp;<span
+          style="color: var(--color-aqua)">Art Direction</span
+        >
+        <span class="mt-2 block text-[0.45em] leading-none font-normal tracking-[-0.02em]"
+          >by Dániel Z. Aczél</span
+        >
       </h1>
-      <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <p class="max-w-2xl text-xl font-medium leading-9 text-ink/72 sm:text-2xl">
-          I design mobile apps, websites, design systems and brand identities for teams that care
-          about how their products work and feel.
+      <div class="mt-10 max-w-[39rem] space-y-6 text-base leading-7">
+        <p class="font-semibold">
+          I’m a senior UX/UI and graphic designer specializing in mobile app design, websites and
+          design systems. I also create logos, brand identities and packaging for businesses of all
+          sizes. Based in Budapest, Hungary, I collaborate with clients worldwide on independent
+          projects and with cross-functional teams.
         </p>
-        <div class="flex flex-wrap gap-3 lg:justify-end">
-          <Button href={withBase('/#work')} size="lg"
-            >Explore selected work <ArrowDown size={18} /></Button
-          ><Button href={withBase('/about/')} variant="secondary" size="lg">About me</Button>
-        </div>
+        <p>
+          I’m experienced in agile environments and always eager to refine workflows and explore new
+          design processes.
+        </p>
+        <p>
+          I place great emphasis on inclusive design and accessibility, and I believe that good
+          design and lovable products can make our lives better.
+        </p>
       </div>
+      <Button class="mt-7" href={withBase('/about/')} variant="secondary">More about me</Button>
     </Container>
   </section>
 
-  <section id="work" class="scroll-mt-24 border-t border-line py-20 sm:py-28">
+  <section class="bg-mist py-20 sm:py-28">
     <Container>
-      <div class="mb-12 flex items-end justify-between gap-6">
-        <div>
-          <p class="eyebrow">Selected work</p><h2 class="headline mt-4">Case studies</h2>
-        </div><Button href={withBase('/ux-ui/')} variant="ghost" icon>View all work</Button>
-      </div>
-      <ProjectGrid projects={featured} />
+      <h2 class="headline">My Design Services</h2>
+      <p class="mt-5 max-w-[39rem] leading-7 text-ink/75">
+        I offer a full range of design services covering digital products, branding and visual
+        communication. From digital products and design systems to logos and visual direction, I
+        help businesses create clear, cohesive and user-centered experiences. I also provide
+        consultation and audits to help teams build stronger design foundations and workflows.
+      </p>
+      {
+        serviceGroups.map(({ title: groupTitle, subtitle, services }, groupIndex) => (
+          <section class:list={['mt-14', groupIndex > 0 && 'border-t border-line pt-14']}>
+            <h3 class="text-2xl font-semibold tracking-[-0.025em]">{groupTitle}</h3>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-ink/70">{subtitle}</p>
+            <div class="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map(({ image, alt, title, price, text, href, linkLabel }) => (
+                <article class="group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-line bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <a href={withBase(href)} class="block overflow-hidden bg-ink/5">
+                    <Image
+                      src={image}
+                      alt={alt}
+                      widths={[480, 720]}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.025]"
+                    />
+                  </a>
+                  <div class="flex flex-1 flex-col p-6 sm:p-7">
+                    <h4 class="text-xl font-semibold tracking-[-0.02em]">{title}</h4>
+                    <p class="mt-3 w-fit rounded-full bg-mist px-3 py-1 text-xs font-bold text-aqua-dark">
+                      {price}
+                    </p>
+                    <p class="mt-4 text-sm leading-7 text-ink/70">{text}</p>
+                    <a class="mt-auto pt-6 text-sm font-bold text-aqua-dark" href={withBase(href)}>
+                      {linkLabel} →
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </Container>
   </section>
 
-  <section class="bg-neutral py-20 text-neutral-content sm:py-28">
+  <section class="py-16 sm:py-20">
     <Container>
-      <p class="eyebrow !text-[#9fcacc]">What I do</p>
-      <h2 class="headline mt-4 max-w-4xl">
-        From product strategy to the final pixel—and the system behind it.
-      </h2>
-      <div
-        class="mt-14 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/12 bg-white/12 md:grid-cols-3"
-      >
-        {
-          services.map(({ icon: Icon, title, text, href }) => (
-            <a class="group bg-neutral p-7 hover:bg-white/[0.06] sm:p-9" href={withBase(href)}>
-              <>
-                <Icon class="text-[#9fcacc]" size={30} stroke-width={1.6} />
-                <h3 class="mt-10 text-2xl font-medium tracking-[-0.03em]">{title}</h3>
-                <p class="mt-3 leading-7 text-white/62">{text}</p>
-                <span class="mt-8 inline-block text-sm font-semibold text-[#9fcacc] group-hover:text-white">
-                  Explore →
-                </span>
-              </>
-            </a>
-          ))
-        }
-      </div>
+      <h2 class="headline">Hire me!</h2>
+      <p class="mt-6 max-w-[42rem] leading-7 text-ink/75">
+        I work independently with teams in Budapest and worldwide on digital products, design
+        systems, brand direction and visual design. Have a project or question in mind? Send a short
+        message below and I’ll get back to you with useful next steps.
+      </p>
     </Container>
   </section>
   <ContactSection />

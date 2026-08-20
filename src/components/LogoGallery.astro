@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const modules = import.meta.glob<{ default: ImageMetadata }>('../assets/logos/*', { eager: true });
+const archiveModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/projects/brand-archive-*',
+  { eager: true },
+);
+const logos = [
+  ['octomind.png', 'Octomind logo'],
+  ['aether.jpg', 'Aether logo'],
+  ['kopia.png', 'Kopia logo'],
+  ['ervin.png', 'Ervin logo'],
+  ['naebula.jpg', 'Naebula logo'],
+  ['boxairace.avif', 'Boxairace auto restore and tune logo'],
+  ['sajo-recruitment.avif', 'Sajó Recruitment logo'],
+  ['kh-photography.avif', 'KH Photography logo'],
+  ['pubcrawl-budapest.avif', 'PubCrawl Budapest logo'],
+  ['rolling-bar-budapest.avif', 'Rolling Bar Budapest logo'],
+  ['urbanistak.avif', 'Urbanisták.com logo'],
+  ['escaperoom-budapest.avif', 'EscapeRoom Budapest logo'],
+  ['romkocsma-kalauz.avif', 'Romkocsma Kalauz logo'],
+  ['bahnwerk.avif', 'BahnWerk logo'],
+  ['flash-episode.avif', 'Flash Episode logo'],
+  ['sunme.avif', 'SunMe Solar logo'],
+  ['psyinfo.avif', 'Psyinfo logo'],
+  ['dharmatronic.avif', 'Dharmatronic logo'],
+  ['rizsa.avif', 'Rizsa logo'],
+  ['eurocell.avif', 'Eurocell logo'],
+  ['byvarga.avif', 'byVarga logo'],
+  ['beerbus.avif', 'BeerBus Budapest logo'],
+  ['orthograph.avif', 'OrthoGraph logo'],
+  ['novolab.avif', 'Novolab logo'],
+  ['aczelvaros.avif', 'Aczélváros logo'],
+  ['bubblefootball-budapest.avif', 'Bubble Football Budapest logo'],
+  ['reeds-pharmacy.avif', "Reed's Pharmacy logo"],
+  ['hblms.avif', 'HBLMS logo'],
+  ['plm-perspektiva.avif', 'PLM Perspektíva logo'],
+  ['mybody-health-program.avif', 'MyBody Health Program logo'],
+].map(([file, alt]) => ({
+  alt,
+  src: modules[`../assets/logos/${file}`].default,
+}));
+
+const restoredLogos = [
+  ['brand-archive-02.png', 'Schönherz Brass Band logo'],
+  ['brand-archive-03.png', 'Labimmun logo'],
+  ['brand-archive-04.png', 'Medi-Lab logo'],
+  ['brand-archive-05.png', 'Paloznaki Jazz Picnic logo'],
+  ['brand-archive-06.png', 'MySpirit logo'],
+  ['brand-archive-07.png', 'Corun Vision Studio logo'],
+  ['brand-archive-08.png', 'Tintatartó logo'],
+  ['brand-archive-09.png', 'POC Co. logo'],
+  ['brand-archive-10.png', 'Sunday Melancholy logo'],
+  ['brand-archive-11.png', 'Imaginary Publishing logo'],
+  ['brand-archive-12.jpeg', 'Danceby.com logo'],
+  ['brand-archive-19.png', 'GranIT logo'],
+].map(([file, alt]) => ({
+  alt,
+  src: archiveModules[`../assets/projects/${file}`].default,
+}));
+
+logos.push(...restoredLogos);
+---
+
+<section aria-labelledby="logo-gallery-title">
+  <h2 id="logo-gallery-title" class="sr-only">Selected logo designs</h2>
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(11.25rem,1fr))] overflow-hidden">
+    {
+      logos.map((logo) => (
+        <figure class="group aspect-square overflow-hidden bg-mist transition-colors duration-500 hover:bg-white">
+          <Image
+            class="h-full w-full object-cover grayscale mix-blend-multiply transition duration-500 ease-out group-hover:scale-[1.025] group-hover:grayscale-0 group-hover:mix-blend-normal"
+            src={logo.src}
+            alt={logo.alt}
+            widths={[240, 360, 480]}
+            sizes="(min-width: 1024px) 16.7vw, (min-width: 640px) 25vw, 50vw"
+            loading="lazy"
+          />
+        </figure>
+      ))
+    }
+  </div>
+</section>

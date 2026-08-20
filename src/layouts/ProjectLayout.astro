@@ -1,17 +1,22 @@
 ---
 import { Image } from 'astro:assets';
-import { ArrowLeft, ExternalLink } from '@lucide/astro';
+import { ArrowLeft } from '@lucide/astro';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
-import Tag from '../components/ui/Tag.astro';
 import ContactSection from '../components/ContactSection.astro';
+import ArticleBlocks from '../components/ArticleBlocks.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
+import wixArticles from '../data/wix-articles.json';
 import { categories, withBase } from '../lib/site';
 interface Props {
   project: CollectionEntry<'projects'>;
 }
 const { project } = Astro.props;
 const category = categories[project.data.category];
+type WixArticle = (typeof wixArticles)[keyof typeof wixArticles];
+const originalArticle = (wixArticles as Record<string, WixArticle>)[project.id];
+const articleTitle = originalArticle?.sourceTitle ?? project.data.title;
 ---
 
 <BaseLayout
@@ -19,92 +24,114 @@ const category = categories[project.data.category];
   description={project.data.seoDescription ?? project.data.summary}
 >
   <article>
-    <header class="py-16 sm:py-24">
+    <header class="py-14 sm:py-20">
       <Container>
-        <a
-          class="inline-flex items-center gap-2 text-sm font-semibold text-ink/60 hover:text-aqua-dark"
-          href={withBase(category.href)}><ArrowLeft size={17} />Back to {category.label}</a
-        >
-        <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_0.38fr] lg:items-end">
-          <div><Tag>{category.label}</Tag><h1 class="display mt-5">{project.data.title}</h1></div>
-          <div>
-            <p class="text-xl leading-8 text-ink/65">{project.data.summary}</p>{
-              project.data.externalUrl && (
-                <a
-                  class="mt-5 inline-flex items-center gap-2 font-semibold text-aqua-dark"
-                  href={project.data.externalUrl}
-                  target="_blank"
-                  rel="noreferrer"
+        <div class="w-full max-w-[50rem]">
+          <a
+            class="inline-flex items-center gap-2 text-sm font-semibold text-ink/60 hover:text-aqua-dark"
+            href={withBase(category.href)}><ArrowLeft size={17} />Back to {category.label}</a
+          >
+          <div class="mt-8">
+            <div class="grid items-start gap-7 sm:grid-cols-[12.5rem_1fr] sm:gap-10">
+              <Image
+                class="aspect-square h-[12.5rem] w-[12.5rem] cursor-zoom-in rounded-2xl object-cover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+                src={project.data.cover}
+                alt={project.data.coverAlt}
+                widths={[200, 400]}
+                sizes="200px"
+                loading="eager"
+                data-lightbox-image
+                role="button"
+                tabindex="0"
+                aria-haspopup="dialog"
+              />
+              <div>
+                <h1 class="text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">
+                  {articleTitle}
+                </h1>
+                <p class="mt-5 max-w-[42rem] leading-7 text-ink/70">{project.data.summary}</p>
+                <aside
+                  class="mt-7 flex flex-wrap gap-x-12 gap-y-5 border-t border-line pt-5 text-sm text-ink/60"
                 >
-                  Visit project <ExternalLink size={17} />
-                </a>
-              )
-            }
+                  {
+                    project.data.client && (
+                      <div>
+                        <p class="eyebrow">Client</p>
+                        <p class="mt-2 text-base text-ink">{project.data.client}</p>
+                      </div>
+                    )
+                  }
+                  {
+                    project.data.role && (
+                      <div>
+                        <p class="eyebrow">Role</p>
+                        <p class="mt-2 text-base text-ink">{project.data.role}</p>
+                      </div>
+                    )
+                  }
+                  {
+                    project.data.year && (
+                      <div>
+                        <p class="eyebrow">Year</p>
+                        <p class="mt-2 text-base text-ink">{project.data.year}</p>
+                      </div>
+                    )
+                  }
+                </aside>
+              </div>
+            </div>
           </div>
         </div>
       </Container>
     </header>
     <Container>
-      <Image
-        class="max-h-[52rem] w-full rounded-[1.75rem] object-cover"
-        src={project.data.cover}
-        alt={project.data.coverAlt}
-        widths={[640, 960, 1400, 1800]}
-        sizes="(min-width: 1280px) 1200px, 100vw"
-        loading="eager"
-      />
-      <div class="mx-auto grid max-w-5xl gap-12 py-16 lg:grid-cols-[0.28fr_0.72fr] lg:py-24">
-        <aside class="text-sm text-ink/60">
+      <div class="w-full max-w-[50rem]">
+        <div class="w-full pt-0 pb-14 lg:pb-20">
           {
-            project.data.client && (
-              <div class="mb-5">
-                <>
-                  <p class="eyebrow">Client</p>
-                  <p class="mt-2 text-base text-ink">{project.data.client}</p>
-                </>
+            originalArticle ? (
+              <ArticleBlocks blocks={originalArticle.blocks} />
+            ) : (
+              <div class="prose-aczel">
+                <slot />
               </div>
             )
           }
-          {
-            project.data.role && (
-              <div class="mb-5">
-                <>
-                  <p class="eyebrow">Role</p>
-                  <p class="mt-2 text-base text-ink">{project.data.role}</p>
-                </>
-              </div>
-            )
-          }
-          {
-            project.data.year && (
-              <div>
-                <>
-                  <p class="eyebrow">Year</p>
-                  <p class="mt-2 text-base text-ink">{project.data.year}</p>
-                </>
-              </div>
-            )
-          }
-        </aside>
-        <div class="prose-aczel"><slot /></div>
+        </div>
+        {
+          !originalArticle && project.data.gallery.length > 0 && (
+            <div class="grid gap-6 pb-24 sm:pb-32">
+              <h2 class="sr-only">Project gallery</h2>
+              {project.data.gallery.map((item) => (
+                <figure>
+                  <Image
+                    class:list={[
+                      'w-full cursor-zoom-in rounded-3xl border border-line/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua',
+                      (item.fit === 'contained' || item.image.height > item.image.width) &&
+                        'mx-auto max-h-[52rem] w-auto max-w-full object-contain',
+                    ]}
+                    src={item.image}
+                    alt={item.alt}
+                    widths={[640, 960, 1400, 1800]}
+                    sizes="(min-width: 1280px) 1200px, 100vw"
+                    data-lightbox-image
+                    data-lightbox-caption={item.caption}
+                    role="button"
+                    tabindex="0"
+                    aria-haspopup="dialog"
+                  />
+                  {item.caption && (
+                    <figcaption class="mt-3 text-center text-sm leading-6 text-ink/60">
+                      {item.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          )
+        }
       </div>
-      {
-        project.data.gallery.length > 0 && (
-          <div class="grid gap-6 pb-24 sm:pb-32">
-            <h2 class="sr-only">Project gallery</h2>
-            {project.data.gallery.map((item) => (
-              <Image
-                class="w-full rounded-[1.5rem]"
-                src={item.image}
-                alt={item.alt}
-                widths={[640, 960, 1400, 1800]}
-                sizes="(min-width: 1280px) 1200px, 100vw"
-              />
-            ))}
-          </div>
-        )
-      }
     </Container>
   </article>
+  <ImageLightbox />
   <ContactSection />
 </BaseLayout>

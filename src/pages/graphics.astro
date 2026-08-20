@@ -1,14 +1,134 @@
 ---
-import { getCollection } from 'astro:content';
-import CategoryLayout from '../layouts/CategoryLayout.astro';
-const projects = (
-  await getCollection('projects', ({ data }) => data.category === 'graphics' && !data.draft)
-).sort((a, b) => a.data.order - b.data.order);
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ContactSection from '../components/ContactSection.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
+import HighlightedText from '../components/ui/HighlightedText.astro';
+import editorialMockup from '../assets/projects/graphics-editorial.jpg';
+import everythingElse from '../assets/projects/graphics-everything-else.jpg';
+import asimovFoundation from '../assets/projects/graphics-asimov.png';
+import asimovEmpire from '../assets/projects/graphics-asimov-2.png';
+import asimovSecond from '../assets/projects/graphics-asimov-3.png';
+import vernonGirls from '../assets/projects/graphics-vernon-sullivan-girls.jpeg';
+import vernonGraves from '../assets/projects/graphics-vernon-sullivan-graves.jpeg';
+import hex from '../assets/projects/graphics-hex.png';
+import honey from '../assets/projects/graphics-honey.jpeg';
+import swag from '../assets/projects/graphics-swag.png';
+import uxTshirt from '../assets/projects/graphics-ux-tshirt.png';
+
+const description =
+  'Some of my favourite graphic design works over the years that are not UX or UI centric.';
+
+const sections = [
+  {
+    title: 'Editorial Design',
+    description:
+      'I design books, magazines, brochures, and other printed materials that combine strong visual storytelling with clear, readable layouts. From cover concepts to interior composition, I focus on typography, hierarchy, and balance to create publications that look refined and communicate effectively — whether in print or digital format.',
+    images: [
+      {
+        src: editorialMockup,
+        alt: 'BLACK by Aczel photo book',
+        caption: 'BLACK by Aczel - photo book',
+      },
+      {
+        src: everythingElse,
+        alt: 'Everything Else by Aczel photo book',
+        caption: 'Everything Else by Aczel - photo book',
+      },
+      {
+        src: asimovFoundation,
+        alt: 'Isaac Asimov Foundation cover concept',
+        caption: 'Isaac Asimov - Foundation',
+      },
+      {
+        src: asimovEmpire,
+        alt: 'Isaac Asimov Foundation and Empire cover concept',
+        caption: 'Isaac Asimov - Foundation and Empire',
+      },
+      {
+        src: asimovSecond,
+        alt: 'Isaac Asimov Second Foundation cover concept',
+        caption: 'Isaac Asimov - Second Foundation',
+      },
+      {
+        src: vernonGirls,
+        alt: "Vernon Sullivan The Girls Don't Understand cover concept",
+        caption: "Vernon Sullivan - The Girls don't Understand",
+      },
+      {
+        src: vernonGraves,
+        alt: 'Vernon Sullivan I Spit on Your Graves cover concept',
+        caption: 'Vernon Sullivan - I Spit on your Graves',
+      },
+    ],
+  },
+  {
+    title: 'Packaging & Wearables',
+    description:
+      'I create packaging, wearables and company swag that captures attention and communicates your brand’s essence through thoughtful structure, color, and typography. My approach balances aesthetics with practicality — ensuring every detail, from materials to layout, enhances usability and shelf appeal while staying true to the brand’s identity.',
+    images: [
+      {
+        src: hex,
+        alt: 'Red and white HEX wine label designs',
+        caption: 'Hex - Red and White wine label',
+      },
+      { src: honey, alt: 'Budapest Honey souvenir jar', caption: 'Budapest Honey' },
+      { src: swag, alt: 'Octomind branded T-shirt', caption: 'Octomind Swag' },
+      {
+        src: uxTshirt,
+        alt: 'Model wearing a UX department T-shirt',
+        caption: 'UX department swag',
+      },
+    ],
+  },
+];
 ---
 
-<CategoryLayout
-  title="Visual stories beyond the screen."
-  eyebrow="Graphics / Other"
-  description="A selection of editorial, packaging and physical brand work shaped by typography, hierarchy, materials and a strong visual concept."
-  projects={projects}
-/>
+<BaseLayout title="Graphics and other designs" description={description}>
+  <section class="py-20 sm:py-28">
+    <Container>
+      <h1 class="display max-w-5xl">
+        <HighlightedText text="Graphics and other designs" highlights={['Graphics']} />
+      </h1>
+      <p class="mt-7 max-w-[42rem] leading-7 text-ink/75">{description}</p>
+    </Container>
+  </section>
+
+  {
+    sections.map((section, index) => (
+      <section class:list={['py-18 sm:py-24', index % 2 === 0 ? 'bg-mist' : 'bg-white']}>
+        <Container>
+          <div class="max-w-[50rem]">
+            <h2 class="headline">{section.title}</h2>
+            <p class="mt-5 leading-7 text-ink/70">{section.description}</p>
+          </div>
+          <div class="mt-10 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {section.images.map((item) => (
+              <figure class="min-w-0">
+                <Image
+                  class="aspect-square h-auto w-full cursor-zoom-in rounded-3xl border border-line/70 object-cover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+                  src={item.src}
+                  alt={item.alt}
+                  widths={[480, 720, 960]}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  data-lightbox-image
+                  data-lightbox-caption={item.caption}
+                  role="button"
+                  tabindex="0"
+                  aria-haspopup="dialog"
+                />
+                <figcaption class="mt-3 text-center text-sm leading-6 text-ink/60">
+                  {item.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Container>
+      </section>
+    ))
+  }
+
+  <ImageLightbox />
+  <ContactSection />
+</BaseLayout>

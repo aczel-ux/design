@@ -1,46 +1,47 @@
 ---
 import { Image } from 'astro:assets';
-import { ArrowUpRight } from '@lucide/astro';
 import type { CollectionEntry } from 'astro:content';
-import Tag from './ui/Tag.astro';
-import { categories, withBase } from '../lib/site';
+import { withBase } from '../lib/site';
 interface Props {
   project: CollectionEntry<'projects'>;
   priority?: boolean;
+  compact?: boolean;
+  surface?: 'white' | 'mist';
 }
-const { project, priority = false } = Astro.props;
-const category = categories[project.data.category];
+const { project, priority = false, compact = false, surface = 'white' } = Astro.props;
 ---
 
-<article class="group">
+<article class="group h-full">
   <a
-    class="block overflow-hidden rounded-[1.5rem] bg-mist"
+    class:list={[
+      'project-card-link flex h-full flex-col overflow-hidden rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua',
+      surface === 'mist' ? 'bg-mist' : 'bg-white',
+    ]}
     href={withBase(`/projects/${project.id}/`)}
     aria-label={`View ${project.data.title} case study`}
   >
-    <Image
-      class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
-      src={project.data.cover}
-      alt={project.data.coverAlt}
-      widths={[480, 768, 1100]}
-      sizes="(min-width: 768px) 50vw, 100vw"
-      loading={priority ? 'eager' : 'lazy'}
-    />
-  </a>
-  <div class="flex items-start justify-between gap-5 pt-5">
-    <div>
-      <Tag href={withBase(category.href)}>{category.label}</Tag>
-      <h3 class="mt-3 text-2xl font-medium tracking-[-0.035em] sm:text-3xl">
-        <a class="hover:text-aqua-dark" href={withBase(`/projects/${project.id}/`)}
-          >{project.data.title}</a
-        >
-      </h3>
-      <p class="mt-2 max-w-xl leading-7 text-ink/65">{project.data.summary}</p>
+    <div class:list={['aspect-[4/3] overflow-hidden', surface === 'mist' ? 'bg-mist' : 'bg-white']}>
+      <Image
+        class="h-full w-full bg-transparent object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+        style="background-color: transparent"
+        src={project.data.cover}
+        alt={project.data.coverAlt}
+        widths={[480, 768, 1100]}
+        sizes={compact
+          ? '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw'
+          : '(min-width: 768px) 50vw, 100vw'}
+        loading={priority ? 'eager' : 'lazy'}
+      />
     </div>
-    <a
-      class="btn btn-circle btn-ghost shrink-0"
-      href={withBase(`/projects/${project.id}/`)}
-      aria-label={`Open ${project.data.title}`}><ArrowUpRight size={21} /></a
-    >
-  </div>
+    <div class:list={[compact ? 'p-5' : 'p-6', 'flex flex-1 flex-col']}>
+      <h3 class:list={[compact ? 'text-xl' : 'text-2xl', 'font-semibold tracking-[-0.025em]']}>
+        {project.data.title}
+      </h3>
+      <p
+        class:list={[compact ? 'mt-2 leading-6' : 'mt-3 leading-7', 'max-w-xl text-sm text-ink/70']}
+      >
+        {project.data.summary}
+      </p>
+    </div>
+  </a>
 </article>

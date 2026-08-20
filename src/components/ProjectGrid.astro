@@ -3,10 +3,28 @@ import type { CollectionEntry } from 'astro:content';
 import ProjectCard from './ProjectCard.astro';
 interface Props {
   projects: CollectionEntry<'projects'>[];
+  compact?: boolean;
+  cardSurface?: 'white' | 'mist';
 }
-const { projects } = Astro.props;
+const { projects, compact = true, cardSurface = 'white' } = Astro.props;
 ---
 
-<div class="grid gap-x-7 gap-y-14 md:grid-cols-2 lg:gap-x-10 lg:gap-y-20">
-  {projects.map((project, index) => <ProjectCard project={project} priority={index < 2} />)}
+<div
+  class:list={[
+    'grid',
+    compact
+      ? 'gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4'
+      : 'gap-x-8 gap-y-14 md:grid-cols-2 lg:gap-x-10 lg:gap-y-16',
+  ]}
+>
+  {
+    projects.map((project, index) => (
+      <ProjectCard
+        project={project}
+        priority={index < (compact ? 4 : 2)}
+        compact={compact}
+        surface={cardSurface}
+      />
+    ))
+  }
 </div>

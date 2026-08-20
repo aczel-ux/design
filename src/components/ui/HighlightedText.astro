@@ -1,0 +1,35 @@
+---
+interface Props {
+  text: string;
+  highlights: string[];
+}
+
+const { text, highlights } = Astro.props;
+const segments: Array<{ text: string; highlighted: boolean }> = [];
+let cursor = 0;
+
+while (cursor < text.length) {
+  const matches = highlights
+    .map((highlight) => ({ highlight, index: text.indexOf(highlight, cursor) }))
+    .filter((match) => match.index >= 0)
+    .sort((a, b) => a.index - b.index);
+  const match = matches[0];
+
+  if (!match) {
+    segments.push({ text: text.slice(cursor), highlighted: false });
+    break;
+  }
+
+  if (match.index > cursor) {
+    segments.push({ text: text.slice(cursor, match.index), highlighted: false });
+  }
+  segments.push({ text: match.highlight, highlighted: true });
+  cursor = match.index + match.highlight.length;
+}
+---
+
+{
+  segments.map((segment) =>
+    segment.highlighted ? <span class="text-aqua">{segment.text}</span> : segment.text,
+  )
+}
