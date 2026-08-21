@@ -4,7 +4,7 @@ export const site = {
   email: 'aczeldz@gmail.com',
   phone: '+36 70 386 1739',
   phoneHref: 'tel:+36703861739',
-  behance: 'https://www.behance.net/aczeldz',
+  behance: 'https://www.behance.net/danielzaczel/',
   linkedin: 'https://www.linkedin.com/in/aczel/',
   description:
     'UX/UI and graphic design by Dániel Z. Aczél — digital products, design systems, branding and visual communication.',

@@ -34,7 +34,7 @@ const articleTitle = originalArticle?.sourceTitle ?? project.data.title;
           <div class="mt-8">
             <div class="grid items-start gap-7 sm:grid-cols-[12.5rem_1fr] sm:gap-10">
               <Image
-                class="aspect-square h-[12.5rem] w-[12.5rem] cursor-zoom-in rounded-2xl object-cover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
+                class="project-image aspect-square h-[12.5rem] w-[12.5rem] cursor-zoom-in rounded-2xl object-cover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua"
                 src={project.data.cover}
                 alt={project.data.coverAlt}
                 widths={[200, 400]}
@@ -105,7 +105,7 @@ const articleTitle = originalArticle?.sourceTitle ?? project.data.title;
                 <figure>
                   <Image
                     class:list={[
-                      'w-full cursor-zoom-in rounded-3xl border border-line/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua',
+                      'project-image w-full cursor-zoom-in rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua',
                       (item.fit === 'contained' || item.image.height > item.image.width) &&
                         'mx-auto max-h-[52rem] w-auto max-w-full object-contain',
                     ]}

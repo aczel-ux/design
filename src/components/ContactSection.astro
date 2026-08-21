@@ -25,9 +25,10 @@ const endpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ?? '';
     <form
       id="contact-form"
       class="rounded-box border border-line bg-white p-6 shadow-soft sm:p-9"
-      action={endpoint || `mailto:${site.email}`}
-      method={endpoint ? 'POST' : 'GET'}
+      action={endpoint || undefined}
+      method="POST"
       data-endpoint={endpoint}
+      data-email={site.email}
       novalidate
     >
       <div class="grid gap-5 sm:grid-cols-2">
@@ -107,8 +108,28 @@ const endpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ?? '';
     }
 
     const endpoint = form.dataset.endpoint;
-    if (!endpoint) return;
     event.preventDefault();
+
+    if (!endpoint) {
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+      const recipient = form.dataset.email;
+      if (!recipient) {
+        showStatus(
+          'The form could not open your email application. Please use the email link instead.',
+          false,
+        );
+        return;
+      }
+
+      const subject = `Portfolio inquiry from ${name}`;
+      const body = `${message}\n\nFrom: ${name}\nEmail: ${email}`;
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     submit?.setAttribute('disabled', '');
 

@@ -16,67 +16,197 @@ import { withBase } from '../lib/site';
       <h1 class="display">About me</h1>
       <div class="mt-9 max-w-[39rem] space-y-6 leading-7 text-ink/75">
         <p>
-          I am a UX designer specializing in mobile application design and websites, but I also
-          enjoy logo and brand identity design, packaging and other graphic design work. I am based
-          in Budapest, Hungary, and take on projects remotely around the world.
+          I am a UX designer specialised in mobile application design and websites, but I like to do
+          other things too—like logo or brand identity design and packaging. Currently I am based in
+          Budapest, Hungary, but I take on projects remotely all over the world.
         </p>
         <p>
-          I like working in cross-functional teams with experts from different backgrounds, while
-          remaining comfortable owning smaller projects independently. I am experienced in agile
-          environments and always open to trying new processes and refining my workflow.
+          I like to work in cross-functional teams with experts from different backgrounds, but I am
+          comfortable doing things on my own as well on smaller projects. I am used to agile
+          environments and am always ready to try new processes and refine my workflow.
         </p>
         <p>
-          I place great emphasis on inclusive design and accessibility, and believe that good design
+          I put great emphasis on inclusive design and accessibility, and believe that good design
           can make our lives better.
         </p>
       </div>
+      <p class="mt-8 font-semibold text-ink/80">
+        Interested in working with me? Grab a copy of my CV!
+      </p>
       <Button class="mt-8" href={withBase('/downloads/daniel-aczel-cv.pdf')} variant="secondary">
         <Download size={17} />Download CV in PDF
       </Button>
     </Container>
   </section>
 
+  <section class="py-20 sm:py-28" aria-labelledby="experience-heading">
+    <Container>
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20">
+        <div>
+          <p class="eyebrow">Experience</p>
+          <h2 id="experience-heading" class="headline mt-3">Where I’ve worked</h2>
+        </div>
+        <ol class="border-l border-line pl-7 sm:pl-10">
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2025–present · Hungary</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">
+              Entrepreneur — Photographer, Art Project Manager
+            </h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              Photographer and art project manager at aether art space, alongside building naebula,
+              a platform for people working in photography.
+            </p>
+          </li>
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2023–2025 · Germany (remote)</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">Octomind GmbH</h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              Lead Designer, responsible for the brand, marketing, web, product design system and
+              user experience team. I also led the design of the Octomind AI app.
+            </p>
+          </li>
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2022 · Hungary</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">WLRP</h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              Manager, leading the web agency’s process and culture transformation across project
+              management, strategy, people management and DevOps.
+            </p>
+          </li>
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2018–2023 · Germany / Hungary</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">
+              GoTo (formerly LogMeIn)
+            </h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              Senior Product Designer and mobile lead for the Chameleon Design System. I led the
+              GoToMeeting mobile experience and contributed as a cross-product mobile expert,
+              accessibility champion, illustration project lead and rebranding partner.
+            </p>
+          </li>
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2017–2018</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">
+              Entrepreneur — Freelancer
+            </h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              External designer for small to mid-sized companies, providing UI and UX, application,
+              brand and web design.
+            </p>
+          </li>
+          <li class="relative pb-11 last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2015–2017 · Hungary</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">OrthoGraph Kft.</h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              UI / UX Designer for building-survey software across mobile and tablet, including the
+              OrthoGraph and Leica Geosystems app families, brand identity and web design.
+            </p>
+          </li>
+          <li class="relative last:pb-0">
+            <span
+              class="absolute -left-[2.05rem] top-1.5 h-3 w-3 rounded-full border-[3px] border-paper bg-aqua sm:-left-[2.8rem]"
+              aria-hidden="true"></span>
+            <p class="eyebrow">2014–2015 · Hungary</p>
+            <h3 class="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink">
+              Spirit One Creative Agency
+            </h3>
+            <p class="mt-3 leading-7 text-ink/72">
+              UI / UX Designer, creating a healthcare application and related products from concept
+              and user journeys through high-fidelity mock-ups, brand and web design.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </Container>
+  </section>
+
   <section class="bg-mist py-20 sm:py-28">
-    <Container class="grid gap-14 lg:grid-cols-3">
-      <article>
+    <Container class="divide-y divide-line">
+      <article
+        class="grid gap-8 pb-14 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20 lg:pb-20"
+      >
         <h2 class="headline">What I work with</h2>
-        <div class="mt-6 space-y-5 text-sm leading-7 text-ink/72">
-          <p>Tools change, and part of my job is finding the right one for the problem.</p>
-          <p><strong>Design:</strong> Figma, Sketch, Abstract, Miro and Adobe Creative Cloud</p>
-          <p><strong>Collaboration:</strong> Jira, Confluence, Trello and GitHub</p>
+        <div class="space-y-5 leading-7 text-ink/72">
+          <h3 class="eyebrow text-ink/80">AI tools</h3>
+          <p>Some AI tools and models I use frequently:</p>
+          <p>Codex (ChatGPT), Midjourney, Grok, WAN, Firefly, Kling and Veo</p>
+          <h3 class="eyebrow text-ink/80">Software and tools</h3>
           <p>
-            I can write HTML and CSS and understand how web, native and cross-platform products
-            behave.
+            Tools come and go; part of my job is finding the right one for the problem I am working
+            on. I believe in learning new tools and, if they prove effective, embedding them in the
+            company process.
+          </p>
+          <p><strong>Some tools I like and use currently:</strong></p>
+          <p>Figma, Abstract, Miro, Adobe Creative Cloud</p>
+          <p><strong>Project management tools and frameworks I currently work with:</strong></p>
+          <p>Jira, Confluence, Trello</p>
+          <p>
+            I can write HTML and CSS, and I also have a general understanding of how web, native app
+            and cross-platform frameworks such as React Native behave.
           </p>
         </div>
       </article>
-      <article>
+      <article
+        class="grid gap-8 py-14 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20 lg:py-20"
+      >
         <h2 class="headline">How I work</h2>
-        <div class="mt-6 space-y-5 text-sm leading-7 text-ink/72">
+        <div class="space-y-5 leading-7 text-ink/72">
+          <h3 class="eyebrow text-ink/80">Agile, waterfall</h3>
           <p>
-            I have worked in agile and waterfall environments, including Kanban and sprint-based
-            teams.
+            I have worked in both agile and waterfall environments and experimented with different
+            methods within agile as well, such as Kanban, daily stand-ups and standard sprint
+            cycles.
           </p>
+          <h3 class="eyebrow pt-3 text-ink/80">Teamwork</h3>
           <p>
-            I collaborate with researchers, developers, writers, artists and product managers, and
-            facilitate workshops that involve them in the design process.
+            I like to work with experts from all kinds of fields. I have worked with researchers,
+            developers, writers, visual artists and product managers, and I have facilitated
+            meetings and workshops to involve them in the design process. I have held various
+            brainstorming sessions and participated in large webinars to inform or inspire my
+            colleagues. When possible, I have travelled to other company offices to build
+            professional relationships, learn and educate my colleagues.
           </p>
+          <h3 class="eyebrow pt-3 text-ink/80">Data-driven design</h3>
           <p>
-            Whenever possible, I base decisions on qualitative and quantitative research rather than
-            assumptions.
+            If possible, I aim to base my work on usage data and research. Both qualitative and
+            quantitative research have their place in my process, and I have tried several methods,
+            including co-design sessions, emotional studies and interviews.
           </p>
         </div>
       </article>
-      <article>
+      <article
+        class="grid gap-8 pt-14 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20 lg:pt-20"
+      >
         <h2 class="headline">What I believe in</h2>
-        <div class="mt-6 space-y-5 text-sm leading-7 text-ink/72">
+        <div class="space-y-5 leading-7 text-ink/72">
+          <h3 class="eyebrow text-ink/80">Minimum lovable product</h3>
           <p>
-            Products should be useful and enjoyable, with a positive impact on the people who use
-            them.
+            Through design and by influencing strategy, I make sure the end product is something our
+            users enjoy and that it has a positive impact on their lives.
           </p>
+          <h3 class="eyebrow pt-3 text-ink/80">Accessibility, inclusivity</h3>
           <p>
-            Modern products should serve people regardless of their abilities. Accessibility is part
-            of design quality from the beginning.
+            Modern products should aim to serve every kind of user, regardless of their natural
+            abilities. Accessibility is part of the basic criteria for me, and I pay attention to
+            building a culture around it.
           </p>
         </div>
       </article>

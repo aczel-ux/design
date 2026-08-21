@@ -76,4 +76,5 @@ After purchasing `aczel.design`:
 
 ## Content notes
 
-The downloadable CV was migrated from the Wix site and dates from 2022, so the interface labels it as an archive. Replace `public/downloads/daniel-aczel-cv.pdf` when a current version is ready.
+The downloadable CV is the current 2026 edition. Keep future replacements at
+`public/downloads/daniel-aczel-cv.pdf` so existing links remain stable.
