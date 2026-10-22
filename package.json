@@ -18,8 +18,9 @@
     "@astrojs/sitemap": "latest",
     "@lucide/astro": "latest",
     "@tailwindcss/vite": "latest",
-    "astro": "latest",
+    "astro": "7.4.2",
     "daisyui": "latest",
+    "sharp": "0.35.5",
     "simple-icons": "latest",
     "tailwindcss": "latest"
   },
