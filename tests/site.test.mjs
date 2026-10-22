@@ -8,6 +8,13 @@ const base = '/design';
 const htmlFiles = [];
 const restoredArticles = JSON.parse(readFileSync(resolve('src/data/wix-articles.json'), 'utf8'));
 
+test('CI resolves the latest supported Node 22 patch instead of a stale cached release', () => {
+  for (const workflow of ['ci.yml', 'deploy.yml']) {
+    const source = readFileSync(resolve('.github/workflows', workflow), 'utf8');
+    assert.match(source, /node-version: 22\s+check-latest: true/, workflow);
+  }
+});
+
 function escapeHtml(value) {
   return value
     .replaceAll('&', '&amp;')
